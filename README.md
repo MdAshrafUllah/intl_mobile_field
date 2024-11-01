@@ -29,7 +29,7 @@ Sometimes you may want to use the latest version of the package, instead of a pu
 dependencies:
   intl_mobile_field:
     git:
-      url:
+      url: https://github.com/MdAshrafUllah/intl_mobile_field.git
       ref: master
 ```
 
