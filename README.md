@@ -121,6 +121,8 @@ IntlMobileField(
 
 Use `initialCountryCode` to set an initial Country Code.
 
+For `PickerDialogStyle` you have to import it from `import 'package:intl_mobile_field/country_picker_dialog.dart';`.
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
