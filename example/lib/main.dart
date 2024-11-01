@@ -67,7 +67,6 @@ class _MyAppState extends State<MyApp> {
                     Icons.star,
                     color: Colors.amber,
                   ),
-                  disableFlagTap: true,
                   favoriteIconIsLeft: false,
                   decoration: const InputDecoration(
                     labelText: 'Mobile Number',
