@@ -1,9 +1,7 @@
 library intl_mobile_field;
 
 import 'dart:async';
-import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_mobile_field/countries.dart';
@@ -575,17 +573,11 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
                   ],
                 if (widget.disableFlagTap == true) const SizedBox(width: 10),
                 if (widget.showCountryFlag) ...[
-                  (kIsWeb || Platform.isLinux || Platform.isWindows)
-                      ? Image.asset(
-                          'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
-                          package: 'intl_mobile_field',
-                          width: widget.flagWidth,
-                        )
-                      : Text(
-                          _selectedCountry.flag,
-                          style:
-                              TextStyle(fontSize: widget.flagWidth! * 0.5625),
-                        ),
+                  Image.asset(
+                    'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
+                    package: 'intl_mobile_field',
+                    width: widget.flagWidth,
+                  ),
                   const SizedBox(width: 8),
                 ],
                 FittedBox(
