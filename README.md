@@ -4,7 +4,7 @@
 
 A customized Flutter TextFormField to input international Mobile number along with country code.
 
-This Package is inspired from `intl_phone_field`. But you know that this package is now not maintain by the owner from middle of 2023. So, I decided to make this package update with more functionalities and make it more flexible and compatible. if you want to know what is updated in the package, please check out the [CHANGELOG.md](CHANGELOG.md) file.
+This Package is inspired by `intl_phone_field`. However, those package owners have not maintained any updates since mid-2023. So, we decided to make a new package with an amazing update that has more functionalities and makes it more flexible and compatible. If you want to know what has been updated in the package, please check out the [CHANGELOG.md](CHANGELOG.md) file.
 
 ## Installing
 
@@ -120,6 +120,8 @@ IntlMobileField(
 <img src="output\1.png" height="500px"> <img src="output\4.png" height="500px">
 
 Use `initialCountryCode` to set an initial Country Code.
+
+For `PickerDialogStyle` you have to import it from `import 'package:intl_mobile_field/country_picker_dialog.dart';`.
 
 ## Contributing
 
