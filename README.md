@@ -1,6 +1,6 @@
 # International Mobile Number Field Package
 
-[![pub package](https://img.shields.io/pub/v/intl_mobile_field.svg)]() [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/MIT)
+[![pub package](https://img.shields.io/pub/v/intl_mobile_field.svg)](https://pub.dev/packages/intl_mobile_field) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/MIT)
 
 A customized Flutter TextFormField to input international Mobile number along with country code.
 
