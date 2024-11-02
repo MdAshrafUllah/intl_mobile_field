@@ -1,3 +1,7 @@
+## [1.0.1] - Release
+
+- make compatible for web.
+
 ## [1.0.0] - Release
 
 - A Custom mobile Input TextFormField.
