@@ -1,3 +1,7 @@
+## [1.0.2] - Release
+
+- fixed Readme file
+
 ## [1.0.1] - Release
 
 - make compatible for web.

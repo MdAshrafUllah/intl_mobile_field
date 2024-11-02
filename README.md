@@ -55,7 +55,7 @@ IntlMobileField(
 
 #### output
 
-<img src="output\1.png" height="500px"> <img src="output\2.png" height="500px">
+<img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/1.png" height="500px"> <img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/2.png" height="500px">
 
 #### Example: 2 (with favorite - style one)
 
@@ -87,7 +87,7 @@ IntlMobileField(
 
 #### output
 
-<img src="output\1.png" height="500px"> <img src="output\6.png" height="500px"> <img src="output\5.png" height="500px">
+<img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/1.png" height="500px"> <img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/6.png" height="500px"> <img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/5.png" height="500px">
 
 #### Example: 3 (with favorite - style two)
 
@@ -117,7 +117,7 @@ IntlMobileField(
 
 #### output
 
-<img src="output\1.png" height="500px"> <img src="output\4.png" height="500px">
+<img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/1.png" height="500px"> <img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/4.png" height="500px">
 
 Use `initialCountryCode` to set an initial Country Code.
 
