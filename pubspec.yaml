@@ -1,6 +1,6 @@
 name: intl_mobile_field
 description: "A customized Flutter TextFormField to input international Mobile number along with country code."
-version: 1.0.2
+version: 1.0.3
 homepage: https://github.com/MdAshrafUllah/intl_mobile_field.git
 
 environment:
