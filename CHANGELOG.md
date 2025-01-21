@@ -1,3 +1,11 @@
+## [1.0.4] - Release
+
+- **New** Add translations for [Bangla], [Hindi], [Urdu] languages.
+- **New** RTL Support for Translations of Right-to-Left Languages
+- added Kosovo localization messages
+- update [README.md] file with translations listed Country and RLT,LRT Output.
+- **New** screenshot(thumbnail) added.
+
 ## [1.0.3] - Release
 
 - Update Benin number format 8 to 10

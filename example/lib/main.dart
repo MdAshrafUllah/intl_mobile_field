@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   initialCountryCode: 'BD',
                   disableLengthCounter: true,
-                  languageCode: "en",
+                  languageCode: "ar",
                   onChanged: (mobile) {
                     log(mobile.completeNumber);
                   },
