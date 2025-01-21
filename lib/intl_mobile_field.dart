@@ -143,8 +143,8 @@ class IntlMobileField extends StatefulWidget {
   /// 2 letter ISO Code or country dial code.
   ///
   /// ```dart
-  /// initialCountryCode: 'IN', // India
-  /// initialCountryCode: '+225', // Côte d'Ivoire
+  /// initialCountryCode: 'BD', // Bangladesh
+  /// initialCountryCode: '+880', // Bangladesh
   /// ```
   final String? initialCountryCode;
 
@@ -299,6 +299,9 @@ class IntlMobileField extends StatefulWidget {
   /// The country code position.
   final bool countryCodePositionRight;
 
+  /// RLT Support for Localization
+  final bool rltSupport;
+
   const IntlMobileField({
     super.key,
     this.formFieldKey,
@@ -311,6 +314,7 @@ class IntlMobileField extends StatefulWidget {
     this.scrollPadding = const EdgeInsets.all(20.0),
     this.initialCountryCode,
     this.languageCode = 'en',
+    this.rltSupport = true,
     this.disableAutoFillHints = false,
     this.obscureText = false,
     this.textAlign = TextAlign.left,
@@ -437,6 +441,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
       builder: (context) => StatefulBuilder(
         builder: (ctx, setState) => CountryPickerDialog(
           languageCode: widget.languageCode.toLowerCase(),
+          rltSupport: widget.rltSupport,
           style: widget.pickerDialogStyle,
           filteredCountries: filteredCountries,
           favorite: widget.favorite,
