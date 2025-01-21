@@ -1,3 +1,7 @@
+## [1.1.1] - Release
+
+- fixed Readme file image URLs
+
 ## [1.1.0] - Release
 
 - **New** Add translations for [Bangla], [Hindi], [Urdu] languages.
