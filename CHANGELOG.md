@@ -1,4 +1,4 @@
-## [1.0.4] - Release
+## [1.1.0] - Release
 
 - **New** Add translations for [Bangla], [Hindi], [Urdu] languages.
 - **New** RTL Support for Translations of Right-to-Left Languages
