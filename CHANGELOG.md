@@ -1,4 +1,4 @@
-## [1.0.4] - Release
+## [1.1.0] - Release
 
 - **New** Add translations for [Bangla], [Hindi], [Urdu] languages.
 - **New** RTL Support for Translations of Right-to-Left Languages
@@ -55,7 +55,7 @@
 - Switch from country List of Maps to List of Country objects.
 - `keyboardAppearance` use default `ThemeData.brightness`.
 - Rename `dropDownIcon` to `dropdownIcon` and `iconPosition` to `dropdownIconPosition`.
-- Remove `autovalidate`.
+- Remove `autoValidate`.
 - Add asynchronous validation.
 - `validator` function parameter type is [MobileNumber] now instead of [String].
 - Add `width` property to [PickerDialogStyle]
