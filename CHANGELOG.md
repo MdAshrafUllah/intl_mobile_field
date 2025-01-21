@@ -1,3 +1,11 @@
+## [1.1.0] - Release
+
+- **New** Add translations for [Bangla], [Hindi], [Urdu] languages.
+- **New** RTL Support for Translations of Right-to-Left Languages
+- added Kosovo localization messages
+- update [README.md] file with translations listed Country and RLT,LRT Output.
+- **New** screenshot(thumbnail) added.
+
 ## [1.0.3] - Release
 
 - Update Benin number format 8 to 10
@@ -47,7 +55,7 @@
 - Switch from country List of Maps to List of Country objects.
 - `keyboardAppearance` use default `ThemeData.brightness`.
 - Rename `dropDownIcon` to `dropdownIcon` and `iconPosition` to `dropdownIconPosition`.
-- Remove `autovalidate`.
+- Remove `autoValidate`.
 - Add asynchronous validation.
 - `validator` function parameter type is [MobileNumber] now instead of [String].
 - Add `width` property to [PickerDialogStyle]

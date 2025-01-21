@@ -56,11 +56,13 @@ class CountryPickerDialog extends StatefulWidget {
   final bool favoriteIconIsLeft;
   final bool countryCodePositionRight;
   final Widget? favoriteIcon;
+  final bool rltSupport;
 
   const CountryPickerDialog({
     super.key,
     required this.searchText,
     required this.languageCode,
+    required this.rltSupport,
     required this.countryList,
     required this.onCountryChanged,
     required this.selectedCountry,
@@ -82,9 +84,11 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
   late Country _selectedCountry;
   late List<Country> _filteredFavoriteCountries;
   late List<Country> _favoriteCountries;
+  bool rltLanguages = false;
 
   @override
   void initState() {
+    checkRLTorLRT(widget.languageCode);
     _selectedCountry = widget.selectedCountry;
     _favoriteCountries =
         getCountriesByCountriesCode(widget.favorite, widget.filteredCountries);
@@ -96,7 +100,6 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
             .localizedName(widget.languageCode)
             .compareTo(b.localizedName(widget.languageCode)),
       );
-
     super.initState();
   }
 
@@ -199,56 +202,106 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
     return Column(
       children: <Widget>[
         ListTile(
-          leading: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (enableFavoriteIcon &&
-                  favoriteIconIsLeft &&
-                  favoriteIcon != null)
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: favoriteIcon,
+          leading: rltLanguages && widget.rltSupport
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (countryCodePositionRight)
+                      Text(
+                        '+${item.dialCode}',
+                        style: widget.style?.countryCodeStyle ??
+                            const TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    if (enableFavoriteIcon &&
+                        !favoriteIconIsLeft &&
+                        favoriteIcon != null)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: favoriteIcon,
+                      ),
+                  ],
+                )
+              : Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (enableFavoriteIcon &&
+                        favoriteIconIsLeft &&
+                        favoriteIcon != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5.0),
+                        child: favoriteIcon,
+                      ),
+                    if (!countryCodePositionRight)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5.0),
+                        child: Text(
+                          '+${item.dialCode}',
+                          style: widget.style?.countryCodeStyle ??
+                              const TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    Image.asset(
+                      'assets/flags/${item.code.toLowerCase()}.png',
+                      package: 'intl_mobile_field',
+                      width: 32,
+                    ),
+                  ],
                 ),
-              if (!countryCodePositionRight)
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: Text(
-                    '+${item.dialCode}',
-                    style: widget.style?.countryCodeStyle ??
-                        const TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                ),
-              Image.asset(
-                'assets/flags/${item.code.toLowerCase()}.png',
-                package: 'intl_mobile_field',
-                width: 32,
-              ),
-            ],
-          ),
           contentPadding: widget.style?.listTilePadding,
           title: Text(
             item.localizedName(widget.languageCode),
             style: widget.style?.countryNameStyle ??
                 const TextStyle(fontWeight: FontWeight.w700),
+            textAlign: rltLanguages && widget.rltSupport
+                ? TextAlign.right
+                : TextAlign.left,
           ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (countryCodePositionRight)
-                Text(
-                  '+${item.dialCode}',
-                  style: widget.style?.countryCodeStyle ??
-                      const TextStyle(fontWeight: FontWeight.w700),
+          trailing: rltLanguages && widget.rltSupport
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      'assets/flags/${item.code.toLowerCase()}.png',
+                      package: 'intl_mobile_field',
+                      width: 32,
+                    ),
+                    const SizedBox(width: 5),
+                    if (enableFavoriteIcon &&
+                        favoriteIconIsLeft &&
+                        favoriteIcon != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5.0),
+                        child: favoriteIcon,
+                      ),
+                    if (!countryCodePositionRight)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5.0),
+                        child: Text(
+                          '+${item.dialCode}',
+                          style: widget.style?.countryCodeStyle ??
+                              const TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                  ],
+                )
+              : Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (countryCodePositionRight)
+                      Text(
+                        '+${item.dialCode}',
+                        style: widget.style?.countryCodeStyle ??
+                            const TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    if (enableFavoriteIcon &&
+                        !favoriteIconIsLeft &&
+                        favoriteIcon != null)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: favoriteIcon,
+                      ),
+                  ],
                 ),
-              if (enableFavoriteIcon &&
-                  !favoriteIconIsLeft &&
-                  favoriteIcon != null)
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: favoriteIcon,
-                ),
-            ],
-          ),
           onTap: () {
             _selectedCountry = item;
             widget.onCountryChanged(_selectedCountry);
@@ -258,5 +311,10 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
         widget.style?.listTileDivider ?? const Divider(thickness: 1),
       ],
     );
+  }
+
+  bool checkRLTorLRT(String languageCode) {
+    List<String> rltLanguagesList = ["ar", "fa", "yue", "ur"];
+    return rltLanguages = rltLanguagesList.contains(languageCode);
   }
 }

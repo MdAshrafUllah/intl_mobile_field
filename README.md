@@ -1,10 +1,25 @@
-# International Mobile Number Field Package
+<br/>
+<p align="center">                    
+<img  src="output/intl_mobile_field.png" height="200" alt="intl_mobile_field logo">                    
+</p>
 
-[![pub package](https://img.shields.io/pub/v/intl_mobile_field.svg)](https://pub.dev/packages/intl_mobile_field) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/MIT)
+<p align="center">                    
+<a href="https://img.shields.io/badge/License-MIT-blue.svg"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>                    
+<a href="https://pub.dev/packages/skeletonizer"><img src="https://img.shields.io/pub/v/intl_mobile_field.svg" alt="pub version"></a>                    
+</p>
+
+---
 
 A customized Flutter TextFormField to input international Mobile number along with country code.
 
-This Package is inspired by `intl_phone_field`. However, those package owners have not maintained any updates since mid-2023. So, we decided to make a new package with an amazing update that has more functionalities and makes it more flexible and compatible. If you want to know what has been updated in the package, please check out the [CHANGELOG.md](CHANGELOG.md) file.
+`intl_mobile_field` is a powerful and flexible Flutter package designed for handling international phone number input with ease. It offers advanced features, improved compatibility, and enhanced customization options to meet modern development needs. Stay updated on the latest additions and improvements by visiting the [Changelog](https://pub.dev/packages/intl_mobile_field/changelog).
+
+- [Installing](#installing)
+- [How to Use](#how-to-use)
+- [Supported Languages](#supported-languages)
+- [Contributing](#contributing)
+- [Maintainers](#maintainers)
+- [LICENSE](#license)
 
 ## Installing
 
@@ -35,6 +50,12 @@ dependencies:
 
 ## How to Use
 
+import the url
+
+```dart
+import 'package:intl_mobile_field/intl_mobile_field.dart';
+```
+
 Simply create a `IntlMobileField` widget, and pass the required params:
 
 #### Example: 1 (without favorite)
@@ -55,7 +76,7 @@ IntlMobileField(
 
 #### output
 
-<img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/1.png" height="500px"> <img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/2.png" height="500px">
+<img src="output/1.png" height="500px"> <img src="output/2.png" height="500px">
 
 #### Example: 2 (with favorite - style one)
 
@@ -87,7 +108,7 @@ IntlMobileField(
 
 #### output
 
-<img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/1.png" height="500px"> <img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/6.png" height="500px"> <img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/5.png" height="500px">
+<img src="output/1.png" height="500px"> <img src="output/6.png" height="500px"> <img src="output/5.png" height="500px">
 
 #### Example: 3 (with favorite - style two)
 
@@ -117,11 +138,43 @@ IntlMobileField(
 
 #### output
 
-<img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/1.png" height="500px"> <img src="https://raw.githubusercontent.com/MdAshrafUllah/intl_mobile_field/refs/heads/development/output/4.png" height="500px">
+<img src="output/1.png" height="500px"> <img src="output/4.png" height="500px">
 
 Use `initialCountryCode` to set an initial Country Code.
 
 For `PickerDialogStyle` you have to import it from `import 'package:intl_mobile_field/country_picker_dialog.dart';`.
+
+#### RTL Support
+
+If you select **`languageCode`** Arabic, Urdu, Persian, or Cantonese (Chinese), the flag will automatically be on the right, and the country code will automatically be on the left. You can also turn off RLT Support by adding **`rltSupport: false`**.
+
+#### output
+
+| **LRT Languages**                       | **RLT Language**                        |
+| --------------------------------------- | --------------------------------------- |
+| <img src="output/8.png" height="500px"> | <img src="output/7.png" height="500px"> |
+
+## Supported Languages
+
+We support more than 20 languages, including:
+
+| **Code** | **Language**       | **Code**    | **Language**         |
+| -------- | ------------------ | ----------- | -------------------- |
+| **hu**   | Hungarian          | **ar**      | Arabic               |
+| **sk**   | Slovak             | **fa**      | Persian              |
+| **se**   | Swedish            | **yue**     | Cantonese (Chinese)  |
+| **pl**   | Polish             | **bd**      | Bengali (Bangladesh) |
+| **no**   | Norwegian          | **in**      | Hindi (India)        |
+| **ja**   | Japanese           | **ur**      | Urdu (Pakistan)      |
+| **it**   | Italian            | **pt_br**   | Brazilian Portuguese |
+| **zh**   | Simplified Chinese | **sr_cyrl** | Serbian (Cyrillic)   |
+| **nl**   | Dutch              | **sr_latn** | Serbian (Latin)      |
+| **de**   | German             | **zh_tw**   | Traditional Chinese  |
+| **fr**   | French             | **tr**      | Turkish              |
+| **es**   | Spanish            | **ro**      | Romanian             |
+| **en**   | English            |             |                      |
+
+Enjoy multilingual support with easy-to-read formatting!
 
 ## Contributing
 
