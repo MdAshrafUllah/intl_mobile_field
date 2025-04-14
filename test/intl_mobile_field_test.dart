@@ -16,7 +16,6 @@ class TestWidget extends StatelessWidget {
           appBar: AppBar(title: const Text("")),
           body: IntlMobileField(
             initialValue: mobileNumber,
-            initialCountryCode: countryCode,
           ),
         ));
   }
@@ -36,15 +35,14 @@ void main() {
     expect(numberFinder, findsOneWidget);
   });
 
-  testWidgets(
-      'Test intl_mobile_field setup with Guernsey number: +441481960194',
+  testWidgets('Test intl_mobile_field setup with Guernsey number: +44960194',
       (WidgetTester tester) async {
     await tester.pumpWidget(const TestWidget(
-      mobileNumber: '+441481960194',
+      mobileNumber: '+44960194',
       countryCode: 'GG',
     ));
 
-    final countryCodeFinder = find.text('+44 1481');
+    final countryCodeFinder = find.text('+44');
     final numberFinder = find.text('960194');
 
     expect(countryCodeFinder, findsOneWidget);

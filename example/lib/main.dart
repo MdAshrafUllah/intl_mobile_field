@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:intl_mobile_field/flags_drop_down.dart';
 import 'package:intl_mobile_field/intl_mobile_field.dart';
 
 void main() {
@@ -17,8 +16,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController controller = TextEditingController();
-
   FocusNode focusNode = FocusNode();
+
+  String? mobileNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -39,50 +39,32 @@ class _MyAppState extends State<MyApp> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 30),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
                 IntlMobileField(
-                  favorite: const ['BD', 'US', 'MY'],
-                  favoriteIcon: Icon(
-                    Icons.star,
-                    color: Colors.amber,
+                  decoration: InputDecoration(
+                    labelText: "Mobile Number",
+                    border: OutlineInputBorder(),
                   ),
-                  favoriteIconIsLeft: false,
-                  decoration: const InputDecoration(
-                    labelText: 'Mobile Number',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
+                  prefixIcon: FlagsDropDown(
+                    initialCountryCode: 'BD',
+                    dropdownIcon: Icon(Icons.abc),
                   ),
-                  initialCountryCode: 'BD',
-                  disableLengthCounter: true,
-                  languageCode: "ar",
-                  onChanged: (mobile) {
-                    log(mobile.completeNumber);
+                  onChanged: (number) {
+                    setState(() {
+                      mobileNumber = "${number.countryCode}${number.number}";
+                    });
+                    debugPrint(
+                        "Changed: ${number.countryCode}${number.number}");
                   },
-                  onCountryChanged: (country) {
-                    log('Country changed to: ${country.name}');
+                  validator: (mobileNumber) {
+                    if (mobileNumber == null || mobileNumber.number.isEmpty) {
+                      return 'Please, Enter a mobile number';
+                    }
+                    if (!RegExp(r'^[0-9]+$').hasMatch(mobileNumber.number)) {
+                      return 'Only digits are allowed';
+                    }
+                    return null;
                   },
+                  suffixIcon: Icon(Icons.contacts),
                 ),
                 const SizedBox(
                   height: 10,
@@ -97,7 +79,6 @@ class _MyAppState extends State<MyApp> {
                       color: Colors.blue,
                       textColor: Colors.white,
                       onPressed: () {
-                        log(controller.text);
                         _formKey.currentState?.validate();
                       },
                       child: const Text(
