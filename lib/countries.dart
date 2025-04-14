@@ -6858,8 +6858,8 @@ const List<Country> countries = [
     flag: "🇸🇨",
     code: "SC",
     dialCode: "248",
-    minLength: 6,
-    maxLength: 6,
+    minLength: 7,
+    maxLength: 7,
   ),
   Country(
     name: "Sierra Leone",
