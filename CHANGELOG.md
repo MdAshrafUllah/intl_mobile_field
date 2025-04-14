@@ -1,3 +1,29 @@
+## [2.0.0] - Major Release 🚀
+
+#### ✨ Newly Added
+
+- **`FlagImage` widget** - Easily display any country's flag anywhere in your UI.
+- **`FlagsDropDown` widget** - A fully customizable country selector with dialog support.
+- Support for **custom validation** - Pass a custom `validator` function with both sync and async validation handling.
+- Users can now add `prefixIcon` and `suffixIcon` in `IntlMobileField`.
+- `FlagsDropDown` appears in the `prefixIcon` by default for `IntlMobileField`, but can be overridden.
+
+#### ⬆️ Changed
+
+- Updated **phone number length validation** for **Seychelles** to match accurate formatting rules.
+
+#### 🔧 Improved
+
+- Introduced **debounced async validation** to prevent overlapping validator calls and improve performance.
+- Developers can **fully customize or replace** the flag dropdown by injecting their own `FlagsDropDown`.
+- Added configuration options to **hide flags, country codes**, or **dropdown icons** both in the field and dialog.
+
+#### 🧰 Notes
+
+- Flutter's native `validator` is not async, so **async validation is handled internally** via `onChanged`, with a debounce.
+- For real-time validation feedback, use the `onChanged` callback and manage UI state accordingly.
+- Explore the package for knowing what new in it.
+
 ## [1.1.1] - Release
 
 - fixed Readme file image URLs
