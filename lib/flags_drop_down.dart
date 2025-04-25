@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl_mobile_field/countries.dart';
 import 'package:intl_mobile_field/country_picker_dialog.dart';
-
-enum Position { leading, trailing }
+import 'package:intl_mobile_field/intl_mobile_field.dart';
 
 class FlagsDropDown extends StatefulWidget {
   final ValueKey? flagsButtonKey;
