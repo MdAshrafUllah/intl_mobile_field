@@ -5,19 +5,11 @@ homepage: https://github.com/MdAshrafUllah/intl_mobile_field.git
 issue_tracker: https://github.com/MdAshrafUllah/intl_mobile_field/issues
 topics:
   [
-    mobile-field,
+    intl-mobile-field,
     phone-field,
     number-field,
-    flutter-intl-phone-field,
-    intl-mobile-field,
-    intl_mobile_field,
     international-phone-field,
     international-mobile-field,
-    international-number-field,
-    intl_phone_field,
-    intl,
-    mobile,
-    number,
   ]
 
 screenshots:
