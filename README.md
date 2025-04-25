@@ -34,7 +34,7 @@ flutter pub add intl_mobile_field
 Or, add the following to your `pubspec.yaml` file under `dependencies`:
 
 ```yaml
-intl_mobile_field: ^2.0.0
+intl_mobile_field: ^2.0.1
 ```
 
 Sometimes you may want to use the latest version of the package, instead of a published version. To do that, use the `git` syntax:
@@ -67,10 +67,8 @@ Simply create a `IntlMobileField` widget, and pass the required params:
 
 ```dart
 IntlMobileField(
-  prefixIcon: FlagsDropDown(
-    initialCountryCode: 'BD', // initial Country is Bangladesh
-    languageCode: "en", // initial language is English
-  ),
+  initialCountryCode: 'BD', // initial Country is Bangladesh
+  languageCode: "en", // initial language is English
   decoration: const InputDecoration(
     labelText: 'Mobile Number',
     border: OutlineInputBorder(
@@ -83,26 +81,24 @@ IntlMobileField(
 
 #### output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="258px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/2.png?raw=true" height="500px" width="258px">
+<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/2.png?raw=true" height="500px" width="250px">
 
 #### Example: 2 (with favorite - style one)
 
 ```dart
 IntlMobileField(
-  prefixIcon: FlagsDropDown(
-    favorite: const ['BD', 'US', 'MY'],
-    favoriteIcon: Icon(
-      Icons.star,
-      color: Colors.amber,
-    ),
-    favoriteIconPosition: Position.trailing,
-    favoriteCountryCodePosition: Position.trailing,
-    initialCountryCode: 'BD',
-    languageCode: "en", // default is 'en'
-    onCountryChanged: (country) {
-      log('Country changed to: ${country.name}');
-    },
+  favorite: const ['BD', 'US', 'MY'],
+  favoriteIcon: Icon(
+    Icons.star,
+    color: Colors.amber,
   ),
+  favoriteIconPosition: Position.trailing,
+  favoriteCountryCodePosition: Position.trailing,
+  initialCountryCode: 'BD',
+  languageCode: "en", // default is 'en'
+  onCountryChanged: (country) {
+    log('Country changed to: ${country.name}');
+  },
   decoration: const InputDecoration(
     labelText: 'Mobile Number',
     border: OutlineInputBorder(
@@ -118,25 +114,23 @@ IntlMobileField(
 
 #### output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="258px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/6.png?raw=true" height="500px" width="258px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/5.png?raw=true" height="500px" width="258px">
+<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/6.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/5.png?raw=true" height="500px" width="250px">
 
 #### Example: 3 (with favorite - style two)
 
 ```dart
 IntlMobileField(
-  prefixIcon: FlagsDropDown(
-    favorite: const ['BD', 'US', 'MY'],
-    favoriteIcon: Icon(
-      Icons.favorite,
-      color: Colors.pinkAccent,
-    ),
-    favoriteIconPosition: Position.trailing,
-    initialCountryCode: 'BD',
-    languageCode: "en", // default is 'en'
-    onCountryChanged: (country) {
-      log('Country changed to: ${country.name}');
-    },
+  favorite: const ['BD', 'US', 'MY'],
+  favoriteIcon: Icon(
+    Icons.favorite,
+    color: Colors.pinkAccent,
   ),
+  favoriteIconPosition: Position.trailing,
+  initialCountryCode: 'BD',
+  languageCode: "en", // default is 'en'
+  onCountryChanged: (country) {
+    log('Country changed to: ${country.name}');
+  },
   decoration: const InputDecoration(
     labelText: 'Mobile Number',
     border: OutlineInputBorder(
@@ -152,7 +146,7 @@ IntlMobileField(
 
 #### output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="258px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/4.png?raw=true" height="500px" width="258px">
+<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/4.png?raw=true" height="500px" width="250px">
 
 Use `initialCountryCode` to set an initial Country Code.
 
@@ -176,7 +170,7 @@ FlagsDropDown(
 
 #### Output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/9.png?raw=true" height="500px" width="258px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/10.png?raw=true" height="500px" width="258px">
+<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/9.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/10.png?raw=true" height="500px" width="250px">
 
 #### Example 5 (FlagImage)
 
@@ -190,11 +184,11 @@ FlagImage(
 
 #### Output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/11.png?raw=true" height="500px" width="258px">
+<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/11.png?raw=true" height="500px" width="250px">
 
 #### Example 6 (Validation Message)
 
-When you want to show a validation message you can pass it through `invalidNumberMessage`
+When you want to show a invalid Number message you can pass it through `invalidNumberMessage`
 
 ```dart
 IntlMobileField(
@@ -208,7 +202,7 @@ IntlMobileField(
 
 #### Output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/12.png?raw=true" height="500px" width="258px">
+<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/12.png?raw=true" height="500px" width="250px">
 
 #### Example 7 (Custom Validation)
 
@@ -216,8 +210,8 @@ you can add your own validation message.
 
 ```dart
 IntlMobileField(
+  initialCountryCode: "BD",
   decoration: InputDecoration(
-    prefixIcon: FlagsDropDown(),
     labelText: "Mobile Number",
     border: OutlineInputBorder(),
   ),
@@ -237,7 +231,7 @@ IntlMobileField(
 
 #### Output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/13.png?raw=true" height="500px" width="258px"><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/14.png?raw=true" height="500px" width="258px">
+<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/13.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/14.png?raw=true" height="500px" width="250px">
 
 #### RTL Support
 
@@ -247,7 +241,7 @@ If you select **`languageCode`** Arabic, Urdu, Persian, or Cantonese (Chinese), 
 
 | **LRT Languages**                                                                                                             | **RLT Language**                                                                                                              |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/8.png?raw=true" height="500px" width="258px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/7.png?raw=true" height="500px" width="258px"> |
+| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/8.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/7.png?raw=true" height="500px" width="250px"> |
 
 ## Supported Languages
 
@@ -267,7 +261,7 @@ We support more than 20 languages, including:
 | **de**   | German             | **zh_tw**   | Traditional Chinese  |
 | **fr**   | French             | **tr**      | Turkish              |
 | **es**   | Spanish            | **ro**      | Romanian             |
-| **en**   | English            |             |                      |
+| **en**   | English            | **pt**      | Portuguese           |
 
 Enjoy multilingual support with easy-to-read formatting!
 

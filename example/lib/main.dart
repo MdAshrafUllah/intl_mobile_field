@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl_mobile_field/flags_drop_down.dart';
 import 'package:intl_mobile_field/intl_mobile_field.dart';
 
 void main() {
@@ -39,15 +38,34 @@ class _MyAppState extends State<MyApp> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 30),
-                IntlMobileField(
+                TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Name",
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.name),
+                const SizedBox(height: 10),
+                TextFormField(
                   decoration: InputDecoration(
-                    labelText: "Mobile Number",
+                    labelText: "Email",
                     border: OutlineInputBorder(),
                   ),
-                  prefixIcon: FlagsDropDown(
-                    initialCountryCode: 'BD',
-                    dropdownIcon: Icon(Icons.abc),
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 10),
+                IntlMobileField(
+                  initialCountryCode:
+                      "US", // If you use this, `initial value` will not work due to precedence.
+                  decoration: const InputDecoration(
+                    labelText: 'Mobile Number',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(),
+                    ),
                   ),
+                  invalidNumberMessage: "",
+                  favorite: ["BD", "US", "MY"],
+                  favoriteCountryCodePosition: Position.trailing,
+                  favoriteIcon: Icon(Icons.favorite),
                   onChanged: (number) {
                     setState(() {
                       mobileNumber = "${number.countryCode}${number.number}";

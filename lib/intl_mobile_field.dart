@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_mobile_field/countries.dart';
+import 'package:intl_mobile_field/country_picker_dialog.dart';
 import 'package:intl_mobile_field/flags_drop_down.dart';
 import 'package:intl_mobile_field/helpers.dart';
 import 'package:intl_mobile_field/mobile_number.dart';
@@ -224,11 +225,94 @@ class IntlMobileField extends StatefulWidget {
   /// when they tap outside of the text field. By default, this callback unfocused the text field, meaning it will lose focus when the user taps outside, which can help users exit the field more easily.
   final TapRegionCallback? onTapOutside;
 
-  /// in prefixIcon you can use any widget. By default it's show [FlagsDropDown] widget,
-  final Widget? prefixIcon;
-
   /// in suffixIcon you can use any widget.
   final Widget? suffixIcon;
+
+  final ValueKey? flagsButtonKey;
+
+  /// Won't work if [enabled] is set to `false`.
+  final bool showDropdownIcon;
+
+  /// disable country choses by user
+  final bool disableFlagTap;
+
+  /// 2 letter ISO Code or country dial code.
+  ///
+  /// ```dart
+  /// initialCountryCode: 'BD', // Bangladesh
+  /// ```
+  final String? initialCountryCode;
+
+  /// Icon of the drop down button.
+  ///
+  /// Default is [Icon(Icons.arrow_drop_down)]
+  final Widget dropdownIcon;
+  final Position dropdownIconPosition;
+
+  /// Whether to show or hide country flag.
+  ///
+  /// Default value is `true`.
+  final bool showDialogCountryFlag;
+  final BoxDecoration dropdownDecoration;
+
+  /// The padding of the Flags Button.
+  ///
+  /// The amount of insets that are applied to the Flags Button.
+  ///
+  /// If unset, defaults to [EdgeInsets.zero].
+  final EdgeInsetsGeometry flagsButtonPadding;
+
+  /// The margin of the country selector button.
+  ///
+  /// The amount of space to surround the country selector button.
+  ///
+  /// If unset, defaults to [EdgeInsets.zero].
+  final EdgeInsets flagsButtonMargin;
+
+  /// The width of the country flag.
+  final double? flagWidth;
+
+  /// The style use for the country dial code.
+  final TextStyle? dropdownTextStyle;
+
+  /// added favorite countries to the top of the list
+  final List<String> favorite;
+
+  /// Use LanguageCode for Localization Country List.
+  final String? languageCode;
+
+  /// Enable or disable the Favorite Icon for the Favorite Country Lists.
+  final bool? enableFavoriteIcon;
+
+  /// Whether the favorite icon is left or right aligned.
+  final Position favoriteIconPosition;
+
+  /// The icon to be displayed when favorite country list is Created.
+  final Widget? favoriteIcon;
+
+  /// RLT Support for Localization
+  final bool? rltSupport;
+
+  /// Optional set of styles to allow for customizing the country search
+  /// & pick dialog
+  final PickerDialogStyle? pickerDialogStyle;
+
+  /// The position of the favorite icon in the country picker dialog.
+  final Position favoriteCountryCodePosition;
+
+  /// The position of the country code in the country picker dialog.
+  final Position dialogCountryCodePosition;
+
+  /// The position of the country code in the flags button.
+  final Position fieldCountryCodePosition;
+
+  final ValueChanged<Country>? onCountryChanged;
+
+  /// Disable country code.
+  final bool countryCodeDisable;
+
+  /// Disable country flag in TextField.
+  final bool showFieldCountryFlag;
 
   const IntlMobileField({
     super.key,
@@ -272,231 +356,37 @@ class IntlMobileField extends StatefulWidget {
     this.expands = false,
     this.maxLines = 1,
     this.onTapOutside,
-    this.prefixIcon,
     this.suffixIcon,
+    this.onCountryChanged,
+    this.flagsButtonKey,
+    this.initialCountryCode,
+    this.favorite = const [],
+    this.showDropdownIcon = true,
+    this.dropdownIcon = const Icon(Icons.arrow_drop_down),
+    this.dropdownIconPosition = Position.leading,
+    this.showDialogCountryFlag = true,
+    this.dropdownDecoration = const BoxDecoration(),
+    this.flagsButtonPadding = EdgeInsets.zero,
+    this.flagsButtonMargin = EdgeInsets.zero,
+    this.flagWidth = 32,
+    this.dropdownTextStyle,
+    this.disableFlagTap = false,
+    this.languageCode,
+    this.rltSupport,
+    this.pickerDialogStyle,
+    this.favoriteIcon,
+    this.favoriteIconPosition = Position.leading,
+    this.enableFavoriteIcon,
+    this.fieldCountryCodePosition = Position.trailing,
+    this.favoriteCountryCodePosition = Position.leading,
+    this.dialogCountryCodePosition = Position.trailing,
+    this.countryCodeDisable = false,
+    this.showFieldCountryFlag = true,
   });
 
   @override
   State<IntlMobileField> createState() => _IntlMobileFieldState();
 }
-
-// class _IntlMobileFieldState extends State<IntlMobileField> {
-//   late List<Country> countryList;
-//   late Country _selectedCountry;
-//   String? validatorMessage;
-//   String number = '';
-//   String? asyncValidationMessage;
-//   bool isValidating = false;
-
-//   Timer? _debounceTimer;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     countryList = widget.countries ?? countries;
-
-//     number = widget.initialValue ?? '';
-//     _selectedCountry = _getInitialCountry(number);
-
-//     number = _stripCountryCode(number, _selectedCountry);
-
-//     if (widget.autovalidateMode == AutovalidateMode.always) {
-//       _validateAsync(
-//         MobileNumber(
-//           countryISOCode: _selectedCountry.code,
-//           countryCode: '+${_selectedCountry.dialCode}',
-//           number: number,
-//         ),
-//       );
-//     }
-//   }
-
-//   Country _getInitialCountry(String number) {
-//     if (number.startsWith('+')) {
-//       number = number.substring(1);
-//       return countries.firstWhere(
-//         (c) => number.startsWith(c.fullCountryCode),
-//         orElse: () => countryList.first,
-//       );
-//     }
-//     return countryList.firstWhere(
-//       (c) => c.code == 'BD',
-//       orElse: () => countryList.first,
-//     );
-//   }
-
-//   String _stripCountryCode(String number, Country country) {
-//     final codePattern = RegExp("^\\+?${country.fullCountryCode}");
-//     return number.replaceFirst(codePattern, "");
-//   }
-
-//   void _onChanged(String value) {
-//     final mobileNumber = MobileNumber(
-//       countryISOCode: _selectedCountry.code,
-//       countryCode: '+${_selectedCountry.fullCountryCode}',
-//       number: value,
-//     );
-
-//     widget.onChanged?.call(mobileNumber);
-
-//     if (widget.autovalidateMode != AutovalidateMode.disabled) {
-//       validatorMessage = _validateSync(mobileNumber);
-//     }
-
-//     _debounceTimer?.cancel();
-//     _debounceTimer = Timer(const Duration(milliseconds: 300), () {
-//       _validateAsync(mobileNumber);
-//     });
-//   }
-
-//   String? _validateSync(MobileNumber mobileNumber) {
-//     final value = mobileNumber.number;
-
-//     if (!isNumeric(value)) {
-//       return widget.invalidNumberMessage;
-//     }
-
-//     if (!widget.disableLengthCheck) {
-//       final validLength = value.length >= _selectedCountry.minLength &&
-//           value.length <= _selectedCountry.maxLength;
-//       if (!validLength) {
-//         return widget.invalidNumberMessage;
-//       }
-//     }
-
-//     return null;
-//   }
-
-//   Future<void> _validateAsync(MobileNumber mobileNumber) async {
-//     if (widget.validator == null) return;
-
-//     setState(() {
-//       isValidating = true;
-//     });
-
-//     final result = await widget.validator!.call(mobileNumber);
-
-//     if (mounted) {
-//       setState(() {
-//         asyncValidationMessage = result;
-//         isValidating = false;
-//       });
-//     }
-//   }
-
-//   @override
-//   void dispose() {
-//     _debounceTimer?.cancel();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextFormField(
-//       key: widget.formFieldKey,
-//       initialValue: widget.controller == null ? number : null,
-//       autofillHints: widget.disableAutoFillHints
-//           ? null
-//           : [AutofillHints.telephoneNumberNational],
-//       readOnly: widget.readOnly,
-//       obscureText: widget.obscureText,
-//       textAlign: widget.textAlign,
-//       textAlignVertical: widget.textAlignVertical,
-//       cursorColor: widget.cursorColor,
-//       onTap: widget.onTap,
-//       onTapOutside: widget.onTapOutside ??
-//           (_) => FocusManager.instance.primaryFocus?.unfocus(),
-//       controller: widget.controller,
-//       focusNode: widget.focusNode,
-//       cursorHeight: widget.cursorHeight,
-//       cursorRadius: widget.cursorRadius,
-//       cursorWidth: widget.cursorWidth,
-//       showCursor: widget.showCursor,
-//       onFieldSubmitted: widget.onSubmitted,
-//       expands: widget.expands,
-//       maxLines: widget.maxLines,
-//       magnifierConfiguration: widget.magnifierConfiguration,
-//       decoration: widget.decoration.copyWith(
-//         prefixIcon: widget.prefixIcon ??
-//             FlagsDropDown(
-//               initialCountryCode: _selectedCountry.code,
-//               onCountryChanged: (newCountry) {
-//                 if (newCountry != _selectedCountry) {
-//                   setState(() {
-//                     _selectedCountry = newCountry;
-//                   });
-//                 }
-//               },
-//             ),
-//         counterText: widget.enabled ? null : '',
-//         border: widget.border,
-//         enabledBorder: widget.border,
-//         focusedBorder: widget.border,
-//         prefixIconConstraints: widget.prefixIconConstraints,
-//         filled: widget.fillColor != null,
-//         fillColor: widget.fillColor,
-//         suffixIcon: widget.suffixIcon,
-//       ),
-//       style: widget.style,
-//       onSaved: (value) {
-//         widget.onSaved?.call(
-//           MobileNumber(
-//             countryISOCode: _selectedCountry.code,
-//             countryCode:
-//                 '+${_selectedCountry.dialCode}${_selectedCountry.regionCode}',
-//             number: value!,
-//           ),
-//         );
-//       },
-//       onChanged: _onChanged,
-//       validator: (value) {
-//         final mobileNumber = MobileNumber(
-//           countryISOCode: _selectedCountry.code,
-//           countryCode: '+${_selectedCountry.fullCountryCode}',
-//           number: value ?? '',
-//         );
-
-//         // Return async error if already available
-//         if (asyncValidationMessage != null) {
-//           return asyncValidationMessage;
-//         }
-
-//         // Get result from validator callback
-//         final result = widget.validator?.call(mobileNumber);
-
-//         // Async validator
-//         if (result != null && result is Future<String?>) {
-//           result.then((msg) {
-//             if (mounted) {
-//               setState(() {
-//                 asyncValidationMessage = msg;
-//               });
-//             }
-//           });
-
-//           return validatorMessage ?? widget.invalidNumberMessage;
-//         }
-
-//         // Sync validator
-//         if (result is String) return result;
-
-//         // Otherwise run sync validation fallback
-//         final syncError = _validateSync(mobileNumber);
-//         return syncError;
-//       },
-//       maxLength:
-//           widget.disableLengthCounter ? null : _selectedCountry.maxLength,
-//       keyboardType: widget.keyboardType,
-//       inputFormatters: widget.inputFormatters,
-//       enabled: widget.enabled,
-//       keyboardAppearance: widget.keyboardAppearance,
-//       autofocus: widget.autoFocus,
-//       textInputAction: widget.textInputAction,
-//       autovalidateMode: widget.autovalidateMode,
-//       scrollPadding: widget.scrollPadding,
-//     );
-//   }
-// }
 
 class _IntlMobileFieldState extends State<IntlMobileField> {
   late List<Country> countryList;
@@ -522,7 +412,11 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
     super.initState();
     countryList = widget.countries ?? countries;
 
-    final initial = widget.initialValue ?? '';
+    widget.controller?.addListener(_handleControllerChange);
+    _updateFromInitialValue();
+
+    // Check controller first, then initialValue
+    final initial = widget.controller?.text ?? widget.initialValue ?? '';
     _selectedCountry = _getInitialCountry(initial);
     number = _stripCountryCode(initial, _selectedCountry);
 
@@ -531,14 +425,42 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
     }
   }
 
-  Country _getInitialCountry(String number) {
-    if (number.startsWith('+')) {
-      number = number.substring(1);
-      return countries.firstWhere(
-        (c) => number.startsWith(c.fullCountryCode),
-        orElse: () => countryList.first,
-      );
+  void _updateFromInitialValue() {
+    final initial = widget.controller?.text ?? widget.initialValue ?? '';
+    _selectedCountry = _getInitialCountry(initial);
+    number = _stripCountryCode(initial, _selectedCountry);
+  }
+
+  void _handleControllerChange() {
+    if (mounted) {
+      setState(_updateFromInitialValue);
     }
+  }
+
+  Country _getInitialCountry(String number) {
+    // Clean the number first
+    final cleanNumber = number.replaceAll(RegExp(r'[^+0-9]'), '');
+
+    if (cleanNumber.startsWith('+')) {
+      final withoutPlus = cleanNumber.substring(1);
+
+      // Try exact match (dialCode + regionCode)
+      for (final country in countryList) {
+        final fullCode = country.dialCode + country.regionCode;
+        if (withoutPlus.startsWith(fullCode)) {
+          return country;
+        }
+      }
+
+      // Fallback to just dialCode match
+      for (final country in countryList) {
+        if (withoutPlus.startsWith(country.dialCode)) {
+          return country;
+        }
+      }
+    }
+
+    // Final fallback to BD or first country
     return countryList.firstWhere(
       (c) => c.code == 'BD',
       orElse: () => countryList.first,
@@ -546,8 +468,15 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
   }
 
   String _stripCountryCode(String number, Country country) {
-    final codePattern = RegExp("^\\+?${country.fullCountryCode}");
-    return number.replaceFirst(codePattern, "");
+    if (number.isEmpty) return '';
+
+    final cleanNumber = number.replaceAll(RegExp(r'[^+0-9]'), '');
+    final fullCode = country.dialCode + country.regionCode;
+
+    if (cleanNumber.startsWith('+')) {
+      return cleanNumber.substring(1 + fullCode.length);
+    }
+    return cleanNumber.substring(fullCode.length);
   }
 
   void _onChanged(String value) {
@@ -562,6 +491,8 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
   String? _validateSync(MobileNumber mobileNumber) {
     final value = mobileNumber.number;
+
+    if (value.isEmpty) return null;
 
     if (!isNumeric(value)) return widget.invalidNumberMessage;
 
@@ -591,6 +522,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
   @override
   void dispose() {
+    widget.controller?.removeListener(_handleControllerChange);
     _debounceTimer?.cancel();
     super.dispose();
   }
@@ -622,17 +554,40 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
       maxLines: widget.maxLines,
       magnifierConfiguration: widget.magnifierConfiguration,
       decoration: widget.decoration.copyWith(
-        prefixIcon: widget.prefixIcon ??
-            FlagsDropDown(
-              initialCountryCode: _selectedCountry.code,
-              onCountryChanged: (newCountry) {
-                if (newCountry != _selectedCountry) {
-                  setState(() {
-                    _selectedCountry = newCountry;
-                  });
-                }
-              },
-            ),
+        prefixIcon: FlagsDropDown(
+          initialCountryCode:
+              widget.initialCountryCode ?? _selectedCountry.code,
+          onCountryChanged: (newCountry) {
+            if (newCountry != _selectedCountry) {
+              setState(() {
+                _selectedCountry = newCountry;
+              });
+            }
+          },
+          countryCodeDisable: widget.countryCodeDisable,
+          dialogCountryCodePosition: widget.dialogCountryCodePosition,
+          disableFlagTap: widget.disableFlagTap,
+          dropdownDecoration: widget.dropdownDecoration,
+          dropdownIcon: widget.dropdownIcon,
+          dropdownIconPosition: widget.dropdownIconPosition,
+          dropdownTextStyle: widget.dropdownTextStyle,
+          enableFavoriteIcon: widget.enableFavoriteIcon,
+          favorite: widget.favorite,
+          favoriteCountryCodePosition: widget.favoriteCountryCodePosition,
+          favoriteIcon: widget.favoriteIcon,
+          favoriteIconPosition: widget.favoriteIconPosition,
+          fieldCountryCodePosition: widget.fieldCountryCodePosition,
+          flagWidth: widget.flagWidth,
+          flagsButtonKey: widget.flagsButtonKey,
+          flagsButtonMargin: widget.flagsButtonMargin,
+          flagsButtonPadding: widget.flagsButtonPadding,
+          languageCode: widget.languageCode,
+          pickerDialogStyle: widget.pickerDialogStyle,
+          rltSupport: widget.rltSupport,
+          showDialogCountryFlag: widget.showDialogCountryFlag,
+          showDropdownIcon: widget.showDropdownIcon,
+          showFieldCountryFlag: widget.showFieldCountryFlag,
+        ),
         counterText: widget.enabled ? null : '',
         border: widget.border,
         enabledBorder: widget.border,
@@ -650,14 +605,12 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
       validator: (value) {
         final mobileNumber = _buildMobileNumber(value);
 
-        // Show async error if it's already available
         if (asyncValidationMessage != null) {
           return asyncValidationMessage;
         }
 
         final result = widget.validator?.call(mobileNumber);
 
-        // Async validator
         if (result is Future<String?>) {
           result.then((msg) {
             if (mounted) {
@@ -668,10 +621,8 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
           return widget.invalidNumberMessage;
         }
 
-        // Sync validator
         if (result is String) return result;
 
-        // Fallback to built-in sync validation
         return _validateSync(mobileNumber);
       },
       maxLength:
@@ -687,3 +638,5 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
     );
   }
 }
+
+enum Position { leading, trailing }
