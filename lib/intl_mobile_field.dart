@@ -394,6 +394,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
   String number = '';
   String? asyncValidationMessage;
   bool isValidating = false;
+  String initial = "";
 
   Timer? _debounceTimer;
 
@@ -415,9 +416,15 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
     widget.controller?.addListener(_handleControllerChange);
     _updateFromInitialValue();
 
-    // Check controller first, then initialValue
-    final initial = widget.controller?.text ?? widget.initialValue ?? '';
-    _selectedCountry = _getInitialCountry(initial);
+    if (widget.initialCountryCode != null) {
+      _selectedCountry = countryList.firstWhere(
+        (country) => country.code == widget.initialCountryCode,
+      );
+    } else {
+      initial = widget.controller?.text ?? widget.initialValue ?? '';
+      _selectedCountry = _getInitialCountry(initial);
+    }
+
     number = _stripCountryCode(initial, _selectedCountry);
 
     if (widget.autovalidateMode == AutovalidateMode.always) {
@@ -557,12 +564,17 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
         prefixIcon: FlagsDropDown(
           initialCountryCode:
               widget.initialCountryCode ?? _selectedCountry.code,
-          onCountryChanged: (newCountry) {
-            if (newCountry != _selectedCountry) {
-              setState(() {
-                _selectedCountry = newCountry;
-              });
-            }
+          // onCountryChanged: (newCountry) {
+          //   if (newCountry != _selectedCountry) {
+          //     setState(() {
+          //       _selectedCountry = newCountry;
+          //     });
+          //   }
+          // },
+          onCountryChanged: (Country country) {
+            _selectedCountry = country;
+            widget.onCountryChanged?.call(country);
+            setState(() {});
           },
           countryCodeDisable: widget.countryCodeDisable,
           dialogCountryCodePosition: widget.dialogCountryCodePosition,
