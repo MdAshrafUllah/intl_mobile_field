@@ -1,4 +1,11 @@
-## [2.0.1] - Release 🚀
+## [2.0.2] - Release 🚀
+
+### Fixed
+
+- Resolved an issue where `onCountryChanged` was not being invoked correctly.
+- Fixed an issue where `initialCountryCode` was not setting the input length properly on initialization.
+
+## [2.0.1] - Release
 
 #### Newly Added
 
