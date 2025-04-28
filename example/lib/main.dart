@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(height: 10),
                 IntlMobileField(
                   initialCountryCode:
-                      "AR", // If you use this, `initial value` will not work due to precedence.
+                      "BD", // If you use this, `initial value` will not work due to precedence.
                   decoration: const InputDecoration(
                     labelText: 'Mobile Number',
                     border: OutlineInputBorder(
@@ -65,7 +65,8 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                   onCountryChanged: (country) {
-                    log(country.toString());
+                    log('Country Dial Code: ${country.dialCode}');
+                    log('Country Code: ${country.code}');
                   },
                   invalidNumberMessage: "",
                   favorite: ["BD", "US", "MY"],

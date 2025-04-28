@@ -564,13 +564,6 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
         prefixIcon: FlagsDropDown(
           initialCountryCode:
               widget.initialCountryCode ?? _selectedCountry.code,
-          // onCountryChanged: (newCountry) {
-          //   if (newCountry != _selectedCountry) {
-          //     setState(() {
-          //       _selectedCountry = newCountry;
-          //     });
-          //   }
-          // },
           onCountryChanged: (Country country) {
             _selectedCountry = country;
             widget.onCountryChanged?.call(country);
