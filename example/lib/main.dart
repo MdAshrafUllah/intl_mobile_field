@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl_mobile_field/intl_mobile_field.dart';
 
@@ -55,13 +57,17 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(height: 10),
                 IntlMobileField(
                   initialCountryCode:
-                      "US", // If you use this, `initial value` will not work due to precedence.
+                      "BD", // If you use this, `initial value` will not work due to precedence.
                   decoration: const InputDecoration(
                     labelText: 'Mobile Number',
                     border: OutlineInputBorder(
                       borderSide: BorderSide(),
                     ),
                   ),
+                  onCountryChanged: (country) {
+                    log('Country Dial Code: ${country.dialCode}');
+                    log('Country Code: ${country.code}');
+                  },
                   invalidNumberMessage: "",
                   favorite: ["BD", "US", "MY"],
                   favoriteCountryCodePosition: Position.trailing,

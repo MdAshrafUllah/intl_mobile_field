@@ -24,6 +24,14 @@ List<Country> getCountriesByCountriesCode(
       .toList();
 }
 
+int getMaxLengthByCountryCode(String countryCode) {
+  final country = countries.firstWhere(
+    (country) => country.code == countryCode,
+    orElse: () => throw 0,
+  );
+  return country.maxLength;
+}
+
 extension CountryExtensions on List<Country> {
   List<Country> stringSearch(String search) {
     search = removeDiacritics(search.toLowerCase());
