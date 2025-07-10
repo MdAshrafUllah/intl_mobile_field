@@ -1,6 +1,7 @@
 library intl_mobile_field;
 
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -413,19 +414,28 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
     super.initState();
     countryList = widget.countries ?? countries;
 
-    widget.controller?.addListener(_handleControllerChange);
-    _updateFromInitialValue();
-
     if (widget.initialCountryCode != null) {
       _selectedCountry = countryList.firstWhere(
-        (country) => country.code == widget.initialCountryCode,
+        (country) =>
+            country.code.toUpperCase() ==
+            widget.initialCountryCode!.toUpperCase(),
+        orElse: () {
+          return countryList.firstWhere((c) => c.code == 'BD',
+              orElse: () => countryList.first);
+        },
       );
     } else {
-      initial = widget.controller?.text ?? widget.initialValue ?? '';
+      final initial = widget.controller?.text ?? widget.initialValue ?? '';
       _selectedCountry = _getInitialCountry(initial);
     }
 
-    number = _stripCountryCode(initial, _selectedCountry);
+    widget.controller?.addListener(_handleControllerChange);
+    _updateFromInitialValue();
+
+    number = _stripCountryCode(
+      widget.controller?.text ?? widget.initialValue ?? '',
+      _selectedCountry,
+    );
 
     if (widget.autovalidateMode == AutovalidateMode.always) {
       _validateAsync(_buildMobileNumber(number));
@@ -434,8 +444,9 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
   void _updateFromInitialValue() {
     final initial = widget.controller?.text ?? widget.initialValue ?? '';
-    _selectedCountry = _getInitialCountry(initial);
-    number = _stripCountryCode(initial, _selectedCountry);
+    if (initial.isNotEmpty) {
+      number = _stripCountryCode(initial, _selectedCountry);
+    }
   }
 
   void _handleControllerChange() {
@@ -479,11 +490,17 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
     final cleanNumber = number.replaceAll(RegExp(r'[^+0-9]'), '');
     final fullCode = country.dialCode + country.regionCode;
+    log("cleanNumber: $cleanNumber fullCode: $fullCode");
+    int codeLength = fullCode.length;
 
     if (cleanNumber.startsWith('+')) {
-      return cleanNumber.substring(1 + fullCode.length);
+      int start = 1 + codeLength;
+      if (cleanNumber.length <= start) return '';
+      return cleanNumber.substring(start);
     }
-    return cleanNumber.substring(fullCode.length);
+
+    if (cleanNumber.length <= codeLength) return '';
+    return cleanNumber.substring(codeLength);
   }
 
   void _onChanged(String value) {
