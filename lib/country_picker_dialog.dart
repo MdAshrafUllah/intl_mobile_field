@@ -60,6 +60,7 @@ class CountryPickerDialog extends StatefulWidget {
   final bool rltSupport;
   final bool disableCountryCode;
   final bool showDialogCountryFlag;
+  final double? countryPickerDialogBoxHeight;
 
   const CountryPickerDialog({
     super.key,
@@ -78,6 +79,7 @@ class CountryPickerDialog extends StatefulWidget {
     this.favorite = const [],
     this.style,
     this.favoriteIcon,
+    this.countryPickerDialogBoxHeight,
   });
 
   @override
@@ -131,6 +133,8 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
       backgroundColor: widget.style?.backgroundColor,
       shape: widget.style?.shape,
       child: Container(
+        height: widget.countryPickerDialogBoxHeight ??
+            MediaQuery.of(context).size.height * 0.9,
         padding: widget.style?.padding ?? const EdgeInsets.all(10),
         child: Column(
           children: <Widget>[

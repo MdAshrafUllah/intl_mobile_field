@@ -52,6 +52,9 @@ class FlagsDropDown extends StatefulWidget {
   /// The style use for the country dial code.
   final TextStyle? dropdownTextStyle;
 
+  /// added filter country in dropdown
+  final List<Country> countries;
+
   /// added favorite countries to the top of the list
   final List<String> favorite;
 
@@ -91,10 +94,14 @@ class FlagsDropDown extends StatefulWidget {
   /// Disable country flag in TextField.
   final bool showFieldCountryFlag;
 
+  /// CountryPicker DialogBox Height
+  final double? countryPickerDialogBoxHeight;
+
   const FlagsDropDown({
     super.key,
     this.flagsButtonKey,
     this.initialCountryCode = 'BD',
+    this.countries = const [],
     this.favorite = const [],
     this.showDropdownIcon = true,
     this.dropdownIcon = const Icon(Icons.arrow_drop_down),
@@ -118,6 +125,7 @@ class FlagsDropDown extends StatefulWidget {
     this.onCountryChanged,
     this.countryCodeDisable = false,
     this.showFieldCountryFlag = true,
+    this.countryPickerDialogBoxHeight,
   });
 
   @override
@@ -156,7 +164,8 @@ class _FlagsDropDownState extends State<FlagsDropDown> {
           enableFavoriteIcon: widget.enableFavoriteIcon ?? true,
           favoriteCountryCodePosition: widget.favoriteCountryCodePosition,
           countryCodePosition: widget.dialogCountryCodePosition,
-          countryList: countries,
+          countryList: widget.countries,
+          countryPickerDialogBoxHeight: widget.countryPickerDialogBoxHeight,
           selectedCountry: _selectedCountry,
           onCountryChanged: (Country country) {
             if (mounted) {
