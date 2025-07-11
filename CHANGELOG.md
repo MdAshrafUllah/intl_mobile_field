@@ -1,9 +1,34 @@
-## [2.0.2] - Release 🚀
+## [2.1.0] - Release 🚀
+
+### Fixed
+
+- RangeError when typing input in `IntlMobileField` [#39](https://github.com/MdAshrafUllah/intl_mobile_field/issues/39)
+- `controller`/`initialValue` issues fixed [#35](https://github.com/MdAshrafUllah/intl_mobile_field/issues/35)
+
+### Added
+
+- 🌏 **Vietnamese language** support for translations
+- `countries` now accepts a `List<String>` of country codes or dial codes [see Example](https://pub.dev/packages/intl_mobile_field#how-to-use)
+- Limit which countries appear in the picker dialog
+- Custom styling support for the maxLength counter using `lengthCounterTextStyle`
+- Set the height of the country Picker DialogBox using `countryPickerDialogBoxHeight`
+
+---
+
+### 🙏 Thanks
+
+Big thanks to [@tAnAs7](https://github.com/tAnAs7) for contributing **Vietnamese language support**!
+
+---
+
+## [2.0.2] - Release
 
 ### Fixed
 
 - Resolved an issue where `onCountryChanged` was not being invoked correctly.
 - Fixed an issue where `initialCountryCode` was not setting the input length properly on initialization.
+
+---
 
 ## [2.0.1] - Release
 
@@ -24,6 +49,8 @@
 #### Notes
 
 - The user can still use `FlagsDropDown` separately anywhere.
+
+---
 
 ## [2.0.0] - Release
 
@@ -51,9 +78,13 @@
 - For real-time validation feedback, use the `onChanged` callback and manage UI state accordingly.
 - Explore the package for knowing what new in it.
 
+---
+
 ## [1.1.1] - Release
 
 - fixed Readme file image URLs
+
+---
 
 ## [1.1.0] - Release
 
@@ -63,17 +94,25 @@
 - update [README.md] file with translations listed Country and RLT,LRT Output.
 - **New** screenshot(thumbnail) added.
 
+---
+
 ## [1.0.3] - Release
 
 - Update Benin number format 8 to 10
+
+---
 
 ## [1.0.2] - Release
 
 - fixed Readme file
 
+---
+
 ## [1.0.1] - Release
 
 - make compatible for web.
+
+---
 
 ## [1.0.0] - Release
 

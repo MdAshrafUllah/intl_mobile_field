@@ -56,8 +56,9 @@ class _MyAppState extends State<MyApp> {
                 ),
                 const SizedBox(height: 10),
                 IntlMobileField(
-                  initialCountryCode:
-                      "BD", // If you use this, `initial value` will not work due to precedence.
+                  controller: controller,
+                  initialCountryCode: "MY",
+                  initialValue: controller.text,
                   decoration: const InputDecoration(
                     labelText: 'Mobile Number',
                     border: OutlineInputBorder(
@@ -70,14 +71,14 @@ class _MyAppState extends State<MyApp> {
                   },
                   invalidNumberMessage: "",
                   favorite: ["BD", "US", "MY"],
+                  countries: ['BD', 'MY', 'US', 'AE', 'UK', 'NL'],
                   favoriteCountryCodePosition: Position.trailing,
                   favoriteIcon: Icon(Icons.favorite),
                   onChanged: (number) {
                     setState(() {
                       mobileNumber = "${number.countryCode}${number.number}";
                     });
-                    debugPrint(
-                        "Changed: ${number.countryCode}${number.number}");
+                    log("full Number: $mobileNumber");
                   },
                   validator: (mobileNumber) {
                     if (mobileNumber == null || mobileNumber.number.isEmpty) {
@@ -89,6 +90,10 @@ class _MyAppState extends State<MyApp> {
                     return null;
                   },
                   suffixIcon: Icon(Icons.contacts),
+                  lengthCounterTextStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,

@@ -1,7 +1,6 @@
 library intl_mobile_field;
 
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -142,7 +141,7 @@ class IntlMobileField extends StatefulWidget {
   final String? initialValue;
 
   /// List of Country to display see countries.dart for format
-  final List<Country>? countries;
+  final List<String>? countries;
 
   /// The decoration to show around the text field.
   ///
@@ -315,6 +314,12 @@ class IntlMobileField extends StatefulWidget {
   /// Disable country flag in TextField.
   final bool showFieldCountryFlag;
 
+  /// CountryPicker DialogBox Height
+  final double? countryPickerDialogBoxHeight;
+
+  /// add a Style to the length Counter
+  final TextStyle? lengthCounterTextStyle;
+
   const IntlMobileField({
     super.key,
     this.formFieldKey,
@@ -383,6 +388,8 @@ class IntlMobileField extends StatefulWidget {
     this.dialogCountryCodePosition = Position.trailing,
     this.countryCodeDisable = false,
     this.showFieldCountryFlag = true,
+    this.countryPickerDialogBoxHeight,
+    this.lengthCounterTextStyle,
   });
 
   @override
@@ -412,21 +419,32 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
   @override
   void initState() {
     super.initState();
-    countryList = widget.countries ?? countries;
 
-    if (widget.initialCountryCode != null) {
-      _selectedCountry = countryList.firstWhere(
-        (country) =>
-            country.code.toUpperCase() ==
-            widget.initialCountryCode!.toUpperCase(),
-        orElse: () {
-          return countryList.firstWhere((c) => c.code == 'BD',
-              orElse: () => countryList.first);
-        },
-      );
+    if (widget.countries != null && widget.countries!.isNotEmpty) {
+      countryList = countries
+          .where((c) =>
+              widget.countries!.contains(c.code.toUpperCase()) ||
+              widget.countries!.contains(c.dialCode))
+          .toList();
     } else {
-      final initial = widget.controller?.text ?? widget.initialValue ?? '';
-      _selectedCountry = _getInitialCountry(initial);
+      countryList = countries;
+    }
+
+    final initialText = widget.controller?.text ?? widget.initialValue ?? '';
+    final detectedCountry = _getInitialCountry(initialText);
+
+    if (initialText.isNotEmpty &&
+        detectedCountry.code.toUpperCase() !=
+            (widget.initialCountryCode?.toUpperCase() ?? '')) {
+      // Case: Detected country from initial text
+      _selectedCountry = detectedCountry;
+    } else {
+      // Fallback: use initialCountryCode or 'BD'
+      final fallbackCode = widget.initialCountryCode ?? 'BD';
+      _selectedCountry = countryList.firstWhere(
+        (country) => country.code.toUpperCase() == fallbackCode.toUpperCase(),
+        orElse: () => countryList.first,
+      );
     }
 
     widget.controller?.addListener(_handleControllerChange);
@@ -437,6 +455,10 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
       _selectedCountry,
     );
 
+    if (widget.controller != null) {
+      widget.controller!.text = number;
+    }
+
     if (widget.autovalidateMode == AutovalidateMode.always) {
       _validateAsync(_buildMobileNumber(number));
     }
@@ -446,13 +468,75 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
     final initial = widget.controller?.text ?? widget.initialValue ?? '';
     if (initial.isNotEmpty) {
       number = _stripCountryCode(initial, _selectedCountry);
+      if (widget.controller != null && widget.controller!.text != number) {
+        widget.controller!.text = number;
+      }
     }
   }
 
   void _handleControllerChange() {
-    if (mounted) {
-      setState(_updateFromInitialValue);
+    if (!mounted) return;
+
+    final rawText = widget.controller?.text ?? '';
+    final cleanText = rawText.replaceAll(RegExp(r'[^+0-9]'), '');
+
+    // CASE 1: Text is empty → reset to default country
+    if (cleanText.isEmpty) {
+      final fallbackCode = widget.initialCountryCode ?? 'BD';
+      final defaultCountry = countryList.firstWhere(
+        (country) => country.code.toUpperCase() == fallbackCode.toUpperCase(),
+        orElse: () => countryList.first,
+      );
+
+      if (_selectedCountry.code != defaultCountry.code) {
+        setState(() {
+          _selectedCountry = defaultCountry;
+        });
+        widget.onCountryChanged?.call(defaultCountry);
+      }
+
+      setState(() => number = '');
+      widget.onChanged?.call(_buildMobileNumber(''));
+      return;
     }
+
+    // CASE 2: Starts with '+' → Try detecting new country
+    if (cleanText.startsWith('+')) {
+      final newCountry = _getInitialCountry(cleanText);
+      final stripped = _stripCountryCode(cleanText, newCountry);
+
+      // Update country if changed
+      if (newCountry.code != _selectedCountry.code) {
+        setState(() {
+          _selectedCountry = newCountry;
+        });
+        widget.onCountryChanged?.call(newCountry);
+      }
+
+      // CASE 4: Full number is entered → strip country code from controller
+      final isComplete = stripped.length >= newCountry.maxLength;
+      if (isComplete) {
+        // Update controller to contain only number (without +code)
+        final cursorPosition = widget.controller!.selection.baseOffset -
+            (cleanText.length - stripped.length);
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          widget.controller?.text = stripped;
+          widget.controller?.selection = TextSelection.collapsed(
+            offset: cursorPosition.clamp(0, stripped.length),
+          );
+        });
+      }
+
+      setState(() => number = stripped);
+      widget.onChanged?.call(_buildMobileNumber(stripped));
+      return;
+    }
+
+    // CASE 3: Normal editing — preserve current country
+    final stripped = _stripCountryCode(cleanText, _selectedCountry);
+    setState(() => number = stripped);
+    widget.onChanged?.call(_buildMobileNumber(stripped));
   }
 
   Country _getInitialCountry(String number) {
@@ -489,18 +573,18 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
     if (number.isEmpty) return '';
 
     final cleanNumber = number.replaceAll(RegExp(r'[^+0-9]'), '');
-    final fullCode = country.dialCode + country.regionCode;
-    log("cleanNumber: $cleanNumber fullCode: $fullCode");
-    int codeLength = fullCode.length;
 
     if (cleanNumber.startsWith('+')) {
-      int start = 1 + codeLength;
-      if (cleanNumber.length <= start) return '';
-      return cleanNumber.substring(start);
+      final withoutPlus = cleanNumber.substring(1);
+
+      if (withoutPlus.startsWith(country.fullCountryCode)) {
+        return withoutPlus.substring(country.fullCountryCode.length);
+      } else if (withoutPlus.startsWith(country.dialCode)) {
+        return withoutPlus.substring(country.dialCode.length);
+      }
     }
 
-    if (cleanNumber.length <= codeLength) return '';
-    return cleanNumber.substring(codeLength);
+    return cleanNumber;
   }
 
   void _onChanged(String value) {
@@ -553,6 +637,8 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
   @override
   Widget build(BuildContext context) {
+    final fullText = widget.controller?.text ?? widget.initialValue ?? '';
+    final hasCodeInText = fullText.startsWith(_selectedCountryDialCode);
     return TextFormField(
       key: widget.formFieldKey,
       initialValue: widget.controller == null ? number : null,
@@ -579,8 +665,9 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
       magnifierConfiguration: widget.magnifierConfiguration,
       decoration: widget.decoration.copyWith(
         prefixIcon: FlagsDropDown(
-          initialCountryCode:
-              widget.initialCountryCode ?? _selectedCountry.code,
+          key: ValueKey(_selectedCountry.code),
+          countries: countryList,
+          initialCountryCode: _selectedCountry.code,
           onCountryChanged: (Country country) {
             _selectedCountry = country;
             widget.onCountryChanged?.call(country);
@@ -609,6 +696,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
           showDialogCountryFlag: widget.showDialogCountryFlag,
           showDropdownIcon: widget.showDropdownIcon,
           showFieldCountryFlag: widget.showFieldCountryFlag,
+          countryPickerDialogBoxHeight: widget.countryPickerDialogBoxHeight,
         ),
         counterText: widget.enabled ? null : '',
         border: widget.border,
@@ -647,8 +735,11 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
         return _validateSync(mobileNumber);
       },
-      maxLength:
-          widget.disableLengthCounter ? null : _selectedCountry.maxLength,
+      maxLength: widget.disableLengthCounter
+          ? null
+          : hasCodeInText
+              ? (_selectedCountry.maxLength + _selectedCountryDialCode.length)
+              : _selectedCountry.maxLength,
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
       enabled: widget.enabled,
@@ -657,6 +748,20 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
       textInputAction: widget.textInputAction,
       autovalidateMode: widget.autovalidateMode,
       scrollPadding: widget.scrollPadding,
+      buildCounter: (BuildContext context,
+          {int? currentLength, int? maxLength, bool? isFocused}) {
+        final fullText = widget.controller?.text ?? widget.initialValue ?? '';
+        final numberLength =
+            _stripCountryCode(fullText, _selectedCountry).length;
+
+        final maxNumberLength =
+            widget.disableLengthCounter ? 0 : _selectedCountry.maxLength;
+
+        return Text(
+          '$numberLength / $maxNumberLength',
+          style: widget.lengthCounterTextStyle,
+        );
+      },
     );
   }
 }

@@ -37,11 +37,12 @@ void main() {
       expect(mobileNumber.isValidNumber(), true);
     });
 
-    test('look up UK as a country code +441624900123', () {
-      Country country = MobileNumber.getCountry("+441624900123");
+    test('look up UK as a country code +447911123456', () {
+      Country country = MobileNumber.getCountry("+447911123456");
       expect(country.name, "United Kingdom");
       expect(country.code, "GB");
-      expect(country.regionCode, "");
+      expect(country.dialCode, "44");
+      expect(country.regionCode, "7911");
     });
 
     test('look up BD as a country code +8801834343423', () {
@@ -54,7 +55,7 @@ void main() {
       final country = MobileNumber.getCountry("+447839960194");
       expect(country.name, "Guernsey");
       expect(country.code, "GG");
-      expect(country.regionCode, "7839");
+      expect(country.dialCode, "44");
     });
 
     test('create with empty complete number', () {
@@ -138,17 +139,7 @@ void main() {
       home: Scaffold(
         body: IntlMobileField(
           initialValue: '+8801781234567',
-          countries: const [
-            Country(
-                flag: "",
-                code: 'BD',
-                dialCode: '880',
-                minLength: 10,
-                maxLength: 11,
-                name: 'Bangladesh',
-                regionCode: '',
-                nameTranslations: {}),
-          ],
+          countries: const ["BD", "MY", "AE"],
           onChanged: (value) => result = value,
         ),
       ),

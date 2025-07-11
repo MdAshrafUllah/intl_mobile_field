@@ -233,6 +233,25 @@ IntlMobileField(
 
 <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/13.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/14.png?raw=true" height="500px" width="250px">
 
+#### Example 8 (Custom Country List)
+
+You can limit the country List. Otherwise, it shows all countries by default.
+
+```dart
+IntlMobileField(
+  initialCountryCode: "BD",
+  decoration: InputDecoration(
+    labelText: "Mobile Number",
+    border: OutlineInputBorder(),
+  ),
+  countries: ['BD', 'MY', 'US', 'AE', 'UK', 'NL'], // ['880', '60', '971'],
+),
+```
+
+#### Output
+
+<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/15.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/16.png?raw=true" height="500px" width="250px">
+
 #### RTL Support
 
 If you select **`languageCode`** Arabic, Urdu, Persian, or Cantonese (Chinese), the flag will automatically be on the right, and the country code will automatically be on the left. You can also turn off RLT Support by adding **`rltSupport: false`**.
@@ -245,23 +264,24 @@ If you select **`languageCode`** Arabic, Urdu, Persian, or Cantonese (Chinese), 
 
 ## Supported Languages
 
-We support more than 20 languages, including:
+#### We support more than 26 languages, including:
 
-| **Code** | **Language**       | **Code**    | **Language**         |
-| -------- | ------------------ | ----------- | -------------------- |
-| **hu**   | Hungarian          | **ar**      | Arabic               |
-| **sk**   | Slovak             | **fa**      | Persian              |
-| **se**   | Swedish            | **yue**     | Cantonese (Chinese)  |
-| **pl**   | Polish             | **bd**      | Bangla (Bangladesh)  |
-| **no**   | Norwegian          | **in**      | Hindi (India)        |
-| **ja**   | Japanese           | **ur**      | Urdu (Pakistan)      |
-| **it**   | Italian            | **pt_br**   | Brazilian Portuguese |
-| **zh**   | Simplified Chinese | **sr_cyrl** | Serbian (Cyrillic)   |
-| **nl**   | Dutch              | **sr_latn** | Serbian (Latin)      |
-| **de**   | German             | **zh_tw**   | Traditional Chinese  |
-| **fr**   | French             | **tr**      | Turkish              |
-| **es**   | Spanish            | **ro**      | Romanian             |
-| **en**   | English            | **pt**      | Portuguese           |
+| **No** | **Code** | **Language**       | **No** | **Code**    | **Language**         |
+| ------ | -------- | ------------------ | ------ | ----------- | -------------------- |
+| 01     | **hu**   | Hungarian          | 15     | **ar**      | Arabic               |
+| 02     | **sk**   | Slovak             | 16     | **fa**      | Persian              |
+| 03     | **se**   | Swedish            | 17     | **yue**     | Cantonese (Chinese)  |
+| 04     | **pl**   | Polish             | 18     | **bd**      | Bangla (Bangladesh)  |
+| 05     | **no**   | Norwegian          | 19     | **in**      | Hindi (India)        |
+| 06     | **ja**   | Japanese           | 20     | **ur**      | Urdu (Pakistan)      |
+| 07     | **it**   | Italian            | 21     | **pt_br**   | Brazilian Portuguese |
+| 08     | **zh**   | Simplified Chinese | 22     | **sr_cyrl** | Serbian (Cyrillic)   |
+| 09     | **nl**   | Dutch              | 23     | **sr_latn** | Serbian (Latin)      |
+| 10     | **de**   | German             | 24     | **zh_tw**   | Traditional Chinese  |
+| 11     | **fr**   | French             | 25     | **tr**      | Turkish              |
+| 12     | **es**   | Spanish            | 26     | **ro**      | Romanian             |
+| 13     | **en**   | English            | 27     | **pt**      | Portuguese           |
+| 14     | **vi**   | Vietnamese         |        |             |                      |
 
 Enjoy multilingual support with easy-to-read formatting!
 
