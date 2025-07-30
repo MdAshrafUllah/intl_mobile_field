@@ -758,7 +758,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
             widget.disableLengthCounter ? 0 : _selectedCountry.maxLength;
 
         return Text(
-          '$numberLength / $maxNumberLength',
+          widget.disableLengthCounter ? "" : '$numberLength / $maxNumberLength',
           style: widget.lengthCounterTextStyle,
         );
       },
