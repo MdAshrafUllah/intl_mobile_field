@@ -34,7 +34,7 @@ flutter pub add intl_mobile_field
 Or, add the following to your `pubspec.yaml` file under `dependencies`:
 
 ```yaml
-intl_mobile_field: ^2.1.0
+intl_mobile_field: ^2.1.1
 ```
 
 Sometimes you may want to use the latest version of the package, instead of a published version. To do that, use the `git` syntax:
