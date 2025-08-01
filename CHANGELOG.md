@@ -1,4 +1,10 @@
-## [2.1.0] - Release 🚀
+## [2.1.1] - Release 🚀
+
+### Fixed
+
+- Fixed disableLengthCounter true does not fully disable counter [#45](https://github.com/MdAshrafUllah/intl_mobile_field/issues/45)
+
+## [2.1.0] - Release
 
 ### Fixed
 
