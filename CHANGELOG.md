@@ -1,4 +1,10 @@
-## [2.1.1] - Release 🚀
+## [2.1.2] - Release 🚀
+
+### Fixed
+
+- +44 [UK] The limit on the length of the number is incorrect. [#51](https://github.com/MdAshrafUllah/intl_mobile_field/issues/51)
+
+## [2.1.1] - Release
 
 ### Fixed
 
