@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
                 const SizedBox(height: 10),
                 IntlMobileField(
                   controller: controller,
-                  initialCountryCode: "MY",
+                  initialCountryCode: "GB",
                   initialValue: controller.text,
                   decoration: const InputDecoration(
                     labelText: 'Mobile Number',
@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                   },
                   invalidNumberMessage: "",
                   favorite: ["BD", "US", "MY"],
-                  countries: ['BD', 'MY', 'US', 'AE', 'UK', 'NL'],
+                  countries: ['BD', 'MY', 'US', 'AE', 'UK', 'NL', 'GB'],
                   favoriteCountryCodePosition: Position.trailing,
                   favoriteIcon: Icon(Icons.favorite),
                   onChanged: (number) {

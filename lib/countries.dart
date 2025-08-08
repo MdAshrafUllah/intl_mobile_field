@@ -8584,7 +8584,7 @@ const List<Country> countries = [
     code: "GB",
     dialCode: "44",
     minLength: 10,
-    maxLength: 10,
+    maxLength: 11,
   ),
   Country(
     name: "United States",
