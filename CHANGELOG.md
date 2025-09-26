@@ -1,4 +1,8 @@
-## [2.1.3] - Release 🚀
+## [2.1.4] - Release 🚀
+
+- ‍Dart format
+
+## [2.1.3] - Release
 
 ### Fixed
 
