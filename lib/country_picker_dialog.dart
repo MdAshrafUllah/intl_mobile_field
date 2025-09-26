@@ -206,16 +206,28 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
   }
 
   void search(String value) {
+    final query = value.toLowerCase();
+
     _filteredCountries = widget.countryList
-        .stringSearch(value)
-        .where((item) => !widget.favorite.contains(item.code))
+        .where((item) =>
+            !widget.favorite.contains(item.code) &&
+            item
+                .localizedName(widget.languageCode)
+                .toLowerCase()
+                .contains(query))
         .toList()
       ..sort(
         (a, b) => a
             .localizedName(widget.languageCode)
             .compareTo(b.localizedName(widget.languageCode)),
       );
-    _filteredFavoriteCountries = _favoriteCountries.stringSearch(value);
+
+    _filteredFavoriteCountries = _favoriteCountries
+        .where((item) => item
+            .localizedName(widget.languageCode)
+            .toLowerCase()
+            .contains(query))
+        .toList();
   }
 
   Widget _buildCountryPickerItem({

@@ -1,4 +1,19 @@
-## [2.1.2] - Release 🚀
+## [2.1.3] - Release 🚀
+
+### Fixed
+
+- Resolved issue with country search: now typing partial country names (e.g., “U”) correctly filters all matching countries instead of requiring exact matches. [#52](https://github.com/MdAshrafUllah/intl_mobile_field/issues/52)
+- Updated `getCountry` method to allow specifying `countryISOCode`, preventing incorrect country selection when multiple countries share the same dial code. [#53](https://github.com/MdAshrafUllah/intl_mobile_field/issues/53)
+
+### Improved
+
+- Search functionality is now case-insensitive and supports substring matching.
+
+### 🙏 Thanks
+
+Big thanks to [@serhii-ovchar-ew](https://github.com/serhii-ovchar-ew) for contributing **validating mobile numbers that already have country information**!
+
+## [2.1.2] - Release
 
 ### Fixed
 
