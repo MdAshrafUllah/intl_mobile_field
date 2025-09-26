@@ -49,7 +49,7 @@ class MobileNumber {
   }
 
   bool isValidNumber() {
-    Country country = getCountry(completeNumber);
+    Country country = getCountry(completeNumber, countryISOCode);
     if (number.length < country.minLength) {
       throw NumberTooShortException();
     }
@@ -64,7 +64,7 @@ class MobileNumber {
     return countryCode + number;
   }
 
-  static Country getCountry(String mobileNumber) {
+  static Country getCountry(String mobileNumber, [String? countryISOCode]) {
     if (mobileNumber == "") {
       throw NumberTooShortException();
     }
@@ -73,6 +73,10 @@ class MobileNumber {
 
     if (!validMobileNumber.hasMatch(mobileNumber)) {
       throw InvalidCharactersException();
+    }
+
+    if(countryISOCode != null){
+      return countries.firstWhere((country) => countryISOCode == country.code);
     }
 
     if (mobileNumber.startsWith('+')) {
