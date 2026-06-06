@@ -34,7 +34,7 @@ flutter pub add intl_mobile_field
 Or, add the following to your `pubspec.yaml` file under `dependencies`:
 
 ```yaml
-intl_mobile_field: ^2.1.3
+intl_mobile_field: ^2.1.5
 ```
 
 Sometimes you may want to use the latest version of the package, instead of a published version. To do that, use the `git` syntax:
@@ -83,7 +83,49 @@ IntlMobileField(
 
 <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/2.png?raw=true" height="500px" width="250px">
 
-#### Example: 2 (with favorite - style one)
+#### Example: 2 (Custom Mobile Field)
+
+```dart
+Row(
+  spacing: 10,
+  children: [
+    Container(
+      height: 48,
+      decoration: BoxDecoration(
+        border: Border.all(width: 0.6, color: Colors.black87),
+        borderRadius: BorderRadius.circular(4.0),
+      ),
+      child: CountryDropDown(
+        countries: countries,
+        onCountryChanged: (value) {
+          setState(() {
+            countryCode = value.dialCode;
+          });
+        },
+      ),
+    ),
+    Expanded(
+      child: TextFormField(
+        controller: mobileControllerSeparate,
+        decoration: InputDecoration(
+          labelText: t('mobileNumber'),
+          border: const OutlineInputBorder(),
+          alignLabelWithHint: true,
+        ),
+        onChanged: (value) {
+          log("Mobile: $countryCode$value");
+        },
+      ),
+    ),
+  ],
+),
+```
+
+#### output
+
+<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/11.png?raw=true" height="500px" width="250px">
+
+#### Example: 3 (with favorite - style one)
 
 ```dart
 IntlMobileField(
@@ -116,7 +158,7 @@ IntlMobileField(
 
 <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/6.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/5.png?raw=true" height="500px" width="250px">
 
-#### Example: 3 (with favorite - style two)
+#### Example: 4 (with favorite - style two)
 
 ```dart
 IntlMobileField(
@@ -156,35 +198,27 @@ For `PickerDialogStyle` you have to import.
 import 'package:intl_mobile_field/country_picker_dialog.dart';
 ```
 
-#### Example 4 (FlagDropDown)
+#### Example 5 (CountryDropDown)
 
 ```dart
-FlagsDropDown(
-  countryCodeDisable: true,
-  onCountryChanged: (country) {
+CountryDropDown(
+    countries: countries,
+    showFieldCountryFlag:
+        true, // default is true, if You want to hide country flag, set it to false
+    showDialogCountryFlag:
+        false, // default is true, if You want to hide country flag in dialog box, set it to false
+    showCountryName:
+        false, // default is true. if You want to show country name, set it to false
+    onCountryChanged: (country) {
     debugPrint('Country changed to: ${country.name}');
-  },
-  flagWidth: 150,
-),
+    },
+    flagWidth: 150,
+)
 ```
 
 #### Output
 
 <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/9.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/10.png?raw=true" height="500px" width="250px">
-
-#### Example 5 (FlagImage)
-
-```dart
-FlagImage(
-  countryCode: 'BD',
-  width: 150,
-  height: 150,
-),
-```
-
-#### Output
-
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/11.png?raw=true" height="500px" width="250px">
 
 #### Example 6 (Validation Message)
 
@@ -258,9 +292,10 @@ If you select **`languageCode`** Arabic, Urdu, Persian, or Cantonese (Chinese), 
 
 #### output
 
-| **LRT Languages**                                                                                                             | **RLT Language**                                                                                                              |
-| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/8.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/7.png?raw=true" height="500px" width="250px"> |
+| **LRT Languages**                                                                                                              | **RLT Language**                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/8.png?raw=true" height="500px" width="250px">  | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/7.png?raw=true" height="500px" width="250px">  |
+| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/17.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/18.png?raw=true" height="500px" width="250px"> |
 
 ## Supported Languages
 

@@ -1,0 +1,13 @@
+{
+  "name": "الاسم",
+  "email": "البريد الإلكتروني",
+  "mobileNumber": "رقم الجوال",
+  "submit": "إرسال",
+  "formSubmitted": "تم إرسال النموذج بنجاح!",
+  "enterNumber": "الرقم المدخل: {number}",
+  "searchCountry": "البحث عن بلد",
+  "invalidMobileNumber": "رقم جوال غير صالح",
+  "pleaseEnterMobile": "الرجاء إدخال رقم الجوال",
+  "onlyDigitsAllowed": "يُسمح فقط بالأرقام",
+  "enterValidMobile": "الرجاء إدخال رقم جوال صحيح"
+}

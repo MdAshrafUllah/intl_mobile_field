@@ -75,7 +75,7 @@ class MobileNumber {
       throw InvalidCharactersException();
     }
 
-    if(countryISOCode != null){
+    if (countryISOCode != null) {
       return countries.firstWhere((country) => countryISOCode == country.code);
     }
 

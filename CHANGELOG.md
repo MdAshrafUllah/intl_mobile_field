@@ -1,4 +1,16 @@
-## [2.1.3] - Release 🚀
+## [2.1.5] - Release 🚀
+
+- **Breaking**: `FlagDropDown` renamed to `CountryDropDown`
+- **Flexible display**: From `CountryDropDown` you can use what you need (country name, code, flag, or any combination)
+- Full RTL & LTR support
+- Complete UI customization control
+- Example code: cleaner and more understandable
+
+## [2.1.4] - Release
+
+- ‍Dart format
+
+## [2.1.3] - Release
 
 ### Fixed
 
