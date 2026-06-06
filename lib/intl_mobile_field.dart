@@ -291,7 +291,7 @@ class IntlMobileField extends StatefulWidget {
   final Widget? favoriteIcon;
 
   /// RLT Support for Localization
-  final bool? rltSupport;
+  final bool rltSupport;
 
   /// Optional set of styles to allow for customizing the country search
   /// & pick dialog
@@ -320,77 +320,84 @@ class IntlMobileField extends StatefulWidget {
   /// add a Style to the length Counter
   final TextStyle? lengthCounterTextStyle;
 
-  const IntlMobileField({
-    super.key,
-    this.formFieldKey,
-    this.scrollPadding = const EdgeInsets.all(20.0),
-    this.disableAutoFillHints = false,
-    this.obscureText = false,
-    this.textAlign = TextAlign.left,
-    this.textAlignVertical,
-    this.onTap,
-    this.readOnly = false,
-    this.initialValue,
-    this.keyboardType = TextInputType.phone,
-    this.controller,
-    this.focusNode,
-    this.decoration = const InputDecoration(),
-    this.style,
-    this.border,
-    this.fillColor,
-    this.prefixIconConstraints,
-    this.onSubmitted,
-    this.validator,
-    this.onChanged,
-    this.countries,
-    this.onSaved,
-    this.inputFormatters,
-    this.enabled = true,
-    this.keyboardAppearance,
-    this.autoFocus = false,
-    this.textInputAction,
-    this.autovalidateMode = AutovalidateMode.onUserInteraction,
-    this.cursorColor,
-    this.disableLengthCheck = false,
-    this.disableLengthCounter = false,
-    this.invalidNumberMessage = 'Invalid Mobile Number',
-    this.cursorHeight,
-    this.cursorRadius = Radius.zero,
-    this.cursorWidth = 2.0,
-    this.showCursor = true,
-    this.magnifierConfiguration,
-    this.expands = false,
-    this.maxLines = 1,
-    this.onTapOutside,
-    this.suffixIcon,
-    this.onCountryChanged,
-    this.flagsButtonKey,
-    this.initialCountryCode,
-    this.favorite = const [],
-    this.showDropdownIcon = true,
-    this.dropdownIcon = const Icon(Icons.arrow_drop_down),
-    this.dropdownIconPosition = Position.leading,
-    this.showDialogCountryFlag = true,
-    this.dropdownDecoration = const BoxDecoration(),
-    this.flagsButtonPadding = EdgeInsets.zero,
-    this.flagsButtonMargin = EdgeInsets.zero,
-    this.flagWidth = 32,
-    this.dropdownTextStyle,
-    this.disableFlagTap = false,
-    this.languageCode,
-    this.rltSupport,
-    this.pickerDialogStyle,
-    this.favoriteIcon,
-    this.favoriteIconPosition = Position.leading,
-    this.enableFavoriteIcon,
-    this.fieldCountryCodePosition = Position.trailing,
-    this.favoriteCountryCodePosition = Position.leading,
-    this.dialogCountryCodePosition = Position.trailing,
-    this.countryCodeDisable = false,
-    this.showFieldCountryFlag = true,
-    this.countryPickerDialogBoxHeight,
-    this.lengthCounterTextStyle,
-  });
+  /// add TextDirection
+  final TextDirection textDirection;
+
+  /// add country List Dense
+  final bool dialogCountryListDense;
+
+  const IntlMobileField(
+      {super.key,
+      this.formFieldKey,
+      this.scrollPadding = const EdgeInsets.all(20.0),
+      this.disableAutoFillHints = false,
+      this.obscureText = false,
+      this.textAlign = TextAlign.left,
+      this.textAlignVertical,
+      this.onTap,
+      this.readOnly = false,
+      this.initialValue,
+      this.keyboardType = TextInputType.phone,
+      this.controller,
+      this.focusNode,
+      this.decoration = const InputDecoration(),
+      this.style,
+      this.border,
+      this.fillColor,
+      this.prefixIconConstraints,
+      this.onSubmitted,
+      this.validator,
+      this.onChanged,
+      this.countries,
+      this.onSaved,
+      this.inputFormatters,
+      this.enabled = true,
+      this.keyboardAppearance,
+      this.autoFocus = false,
+      this.textInputAction,
+      this.autovalidateMode = AutovalidateMode.onUserInteraction,
+      this.cursorColor,
+      this.disableLengthCheck = false,
+      this.disableLengthCounter = false,
+      this.invalidNumberMessage = 'Invalid Mobile Number',
+      this.cursorHeight,
+      this.cursorRadius = Radius.zero,
+      this.cursorWidth = 2.0,
+      this.showCursor = true,
+      this.magnifierConfiguration,
+      this.expands = false,
+      this.maxLines = 1,
+      this.onTapOutside,
+      this.suffixIcon,
+      this.onCountryChanged,
+      this.flagsButtonKey,
+      this.initialCountryCode,
+      this.favorite = const [],
+      this.showDropdownIcon = true,
+      this.dropdownIcon = const Icon(Icons.arrow_drop_down),
+      this.dropdownIconPosition = Position.leading,
+      this.showDialogCountryFlag = true,
+      this.dropdownDecoration = const BoxDecoration(),
+      this.flagsButtonPadding = EdgeInsets.zero,
+      this.flagsButtonMargin = EdgeInsets.zero,
+      this.flagWidth = 32,
+      this.dropdownTextStyle,
+      this.disableFlagTap = false,
+      this.languageCode,
+      this.rltSupport = true,
+      this.pickerDialogStyle,
+      this.favoriteIcon,
+      this.favoriteIconPosition = Position.trailing,
+      this.enableFavoriteIcon,
+      this.fieldCountryCodePosition = Position.trailing,
+      this.favoriteCountryCodePosition = Position.trailing,
+      this.dialogCountryCodePosition = Position.trailing,
+      this.countryCodeDisable = false,
+      this.showFieldCountryFlag = true,
+      this.countryPickerDialogBoxHeight,
+      this.lengthCounterTextStyle,
+      this.textDirection = TextDirection.ltr,
+      this.dialogCountryListDense = false});
 
   @override
   State<IntlMobileField> createState() => _IntlMobileFieldState();
@@ -407,6 +414,8 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
   Timer? _debounceTimer;
 
   String get _selectedCountryDialCode => '+${_selectedCountry.fullCountryCode}';
+
+  bool rltLanguages = false;
 
   MobileNumber _buildMobileNumber(String? number) {
     return MobileNumber(
@@ -664,7 +673,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
       maxLines: widget.maxLines,
       magnifierConfiguration: widget.magnifierConfiguration,
       decoration: widget.decoration.copyWith(
-        prefixIcon: FlagsDropDown(
+        prefixIcon: CountryDropDown(
           key: ValueKey(_selectedCountry.code),
           countries: countryList,
           initialCountryCode: _selectedCountry.code,
@@ -697,6 +706,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
           showDropdownIcon: widget.showDropdownIcon,
           showFieldCountryFlag: widget.showFieldCountryFlag,
           countryPickerDialogBoxHeight: widget.countryPickerDialogBoxHeight,
+          dialogCountryListDense: widget.dialogCountryListDense,
         ),
         counterText: widget.enabled ? null : '',
         border: widget.border,
@@ -762,6 +772,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
           style: widget.lengthCounterTextStyle,
         );
       },
+      textDirection: widget.textDirection,
     );
   }
 }

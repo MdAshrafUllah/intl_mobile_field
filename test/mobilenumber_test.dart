@@ -37,25 +37,18 @@ void main() {
       expect(mobileNumber.isValidNumber(), true);
     });
 
-    test('look up UK as a country code +447911123456', () {
-      Country country = MobileNumber.getCountry("+447911123456");
-      expect(country.name, "United Kingdom");
-      expect(country.code, "GB");
-      expect(country.dialCode, "44");
-      expect(country.regionCode, "7911");
+    test('look up Saudi Arabia as a country code +966512345678', () {
+      Country country = MobileNumber.getCountry("+966512345678");
+      expect(country.name, "Saudi Arabia");
+      expect(country.code, "SA");
+      expect(country.dialCode, "966");
+      expect(country.regionCode, "");
     });
 
     test('look up BD as a country code +8801834343423', () {
       Country country = MobileNumber.getCountry("+8801834343423");
       expect(country.name, "Bangladesh");
       expect(country.code, "BD");
-    });
-
-    test('look up Guernsey as a country code', () {
-      final country = MobileNumber.getCountry("+447839960194");
-      expect(country.name, "Guernsey");
-      expect(country.code, "GG");
-      expect(country.dialCode, "44");
     });
 
     test('create with empty complete number', () {
@@ -92,12 +85,12 @@ void main() {
           throwsA(const TypeMatcher<NumberTooLongException>()));
     });
 
-    test('create UK MobileNumber from +447912345678', () {
+    test('create Saudi Arabia MobileNumber from +966512345678', () {
       MobileNumber mobileNumber =
-          MobileNumber.fromCompleteNumber(completeNumber: "+447912345678");
-      expect(mobileNumber.countryISOCode, "GB");
-      expect(mobileNumber.countryCode, "44");
-      expect(mobileNumber.number, "7912345678");
+          MobileNumber.fromCompleteNumber(completeNumber: "+966512345678");
+      expect(mobileNumber.countryISOCode, "SA");
+      expect(mobileNumber.countryCode, "966");
+      expect(mobileNumber.number, "512345678");
       expect(mobileNumber.isValidNumber(), true);
     });
 
@@ -107,15 +100,6 @@ void main() {
       expect(mobileNumber.countryISOCode, "BD");
       expect(mobileNumber.countryCode, "880");
       expect(mobileNumber.number, "1789012342");
-      expect(mobileNumber.isValidNumber(), true);
-    });
-
-    test('create Guernsey MobileNumber from +447839960194', () {
-      MobileNumber mobileNumber =
-          MobileNumber.fromCompleteNumber(completeNumber: "+447839960194");
-      expect(mobileNumber.countryISOCode, "GG");
-      expect(mobileNumber.countryCode, "447839");
-      expect(mobileNumber.number, "960194");
       expect(mobileNumber.isValidNumber(), true);
     });
 

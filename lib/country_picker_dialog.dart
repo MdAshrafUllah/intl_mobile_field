@@ -28,20 +28,19 @@ class PickerDialogStyle {
 
   final ShapeBorder? shape;
 
-  PickerDialogStyle({
-    this.backgroundColor,
-    this.countryCodeStyle,
-    this.countryNameStyle,
-    this.listTileDivider,
-    this.listTilePadding,
-    this.padding,
-    this.searchFieldCursorColor,
-    this.searchFieldInputDecoration,
-    this.searchFieldPadding,
-    this.searchFieldTextStyle,
-    this.width,
-    this.shape,
-  });
+  PickerDialogStyle(
+      {this.backgroundColor,
+      this.countryCodeStyle,
+      this.countryNameStyle,
+      this.listTileDivider,
+      this.listTilePadding,
+      this.padding,
+      this.searchFieldCursorColor,
+      this.searchFieldInputDecoration,
+      this.searchFieldPadding,
+      this.searchFieldTextStyle,
+      this.width,
+      this.shape});
 }
 
 class CountryPickerDialog extends StatefulWidget {
@@ -61,26 +60,27 @@ class CountryPickerDialog extends StatefulWidget {
   final bool disableCountryCode;
   final bool showDialogCountryFlag;
   final double? countryPickerDialogBoxHeight;
+  final bool? dialogCountryListDense;
 
-  const CountryPickerDialog({
-    super.key,
-    required this.countryList,
-    required this.onCountryChanged,
-    required this.selectedCountry,
-    required this.filteredFavoriteCountries,
-    required this.disableCountryCode,
-    required this.favoriteCountryCodePosition,
-    required this.countryCodePosition,
-    required this.favoriteIconPosition,
-    required this.showDialogCountryFlag,
-    this.enableFavoriteIcon = true,
-    this.rltSupport = true,
-    this.languageCode = 'en',
-    this.favorite = const [],
-    this.style,
-    this.favoriteIcon,
-    this.countryPickerDialogBoxHeight,
-  });
+  const CountryPickerDialog(
+      {super.key,
+      required this.countryList,
+      required this.onCountryChanged,
+      required this.selectedCountry,
+      required this.filteredFavoriteCountries,
+      required this.disableCountryCode,
+      required this.favoriteCountryCodePosition,
+      required this.countryCodePosition,
+      required this.favoriteIconPosition,
+      required this.showDialogCountryFlag,
+      this.enableFavoriteIcon = true,
+      this.rltSupport = true,
+      this.languageCode = 'en',
+      this.favorite = const [],
+      this.style,
+      this.favoriteIcon,
+      this.countryPickerDialogBoxHeight,
+      this.dialogCountryListDense});
 
   @override
   State<CountryPickerDialog> createState() => _CountryPickerDialogState();
@@ -186,12 +186,12 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                       (BuildContext context, int index) {
                         final Country item = _filteredCountries[index];
                         return _buildCountryPickerItem(
-                          item: item,
-                          isFavorite: false,
-                          countryCodePosition: widget.countryCodePosition,
-                          disableCountryCode: widget.disableCountryCode,
-                          showDialogCountryFlag: widget.showDialogCountryFlag,
-                        );
+                            item: item,
+                            isFavorite: false,
+                            countryCodePosition: widget.countryCodePosition,
+                            disableCountryCode: widget.disableCountryCode,
+                            showDialogCountryFlag: widget.showDialogCountryFlag,
+                            dense: widget.dialogCountryListDense);
                       },
                       childCount: _filteredCountries.length,
                     ),
@@ -240,10 +240,12 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
     Position? favoriteIconPosition,
     bool enableFavoriteIcon = true,
     Widget? favoriteIcon,
+    bool? dense,
   }) {
     return Column(
       children: <Widget>[
         ListTile(
+          dense: dense,
           leading: rltLanguages && widget.rltSupport
               ? Row(
                   mainAxisSize: MainAxisSize.min,
@@ -259,11 +261,24 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                         style: widget.style?.countryCodeStyle ??
                             const TextStyle(fontWeight: FontWeight.w700),
                       ),
+                    if ((isFavorite &&
+                            (favoriteCountryCodePosition == Position.leading) &&
+                            !disableCountryCode) ||
+                        (!isFavorite &&
+                            !disableCountryCode &&
+                            (countryCodePosition == Position.leading)))
+                      const SizedBox(width: 5.0),
+                    if (showDialogCountryFlag)
+                      Image.asset(
+                        'assets/flags/${item.code.toLowerCase()}.png',
+                        package: 'intl_mobile_field',
+                        width: 32,
+                      ),
                     if (enableFavoriteIcon &&
-                        (favoriteIconPosition == Position.trailing) &&
+                        (favoriteIconPosition == Position.leading) &&
                         favoriteIcon != null)
                       Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
+                        padding: const EdgeInsets.only(right: 5.0),
                         child: favoriteIcon,
                       ),
                   ],
@@ -313,20 +328,6 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
               ? Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (showDialogCountryFlag)
-                      Image.asset(
-                        'assets/flags/${item.code.toLowerCase()}.png',
-                        package: 'intl_mobile_field',
-                        width: 32,
-                      ),
-                    const SizedBox(width: 5),
-                    if (enableFavoriteIcon &&
-                        (favoriteIconPosition == Position.leading) &&
-                        favoriteIcon != null)
-                      Padding(
-                        padding: const EdgeInsets.only(right: 5.0),
-                        child: favoriteIcon,
-                      ),
                     if ((isFavorite &&
                             (favoriteCountryCodePosition ==
                                 Position.trailing) &&
@@ -341,6 +342,13 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                           style: widget.style?.countryCodeStyle ??
                               const TextStyle(fontWeight: FontWeight.w700),
                         ),
+                      ),
+                    if (enableFavoriteIcon &&
+                        (favoriteIconPosition == Position.trailing) &&
+                        favoriteIcon != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 5.0),
+                        child: favoriteIcon,
                       ),
                   ],
                 )
