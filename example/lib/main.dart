@@ -1,7 +1,9 @@
-import 'dart:developer';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:intl_mobile_field/intl_mobile_field.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl_mobile_field_example/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,113 +17,73 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final GlobalKey<FormState> _formKey = GlobalKey();
-  final TextEditingController controller = TextEditingController();
-  FocusNode focusNode = FocusNode();
+  Locale _locale = const Locale('en', 'US');
+  TextDirection _textDirection = TextDirection.ltr;
+  Map<String, Map<String, String>> _localizations = {};
+  bool _isLoaded = false;
 
-  String? mobileNumber;
+  @override
+  void initState() {
+    super.initState();
+    _loadLocalizations();
+  }
+
+  Future<void> _loadLocalizations() async {
+    final enJson = await rootBundle.loadString('lib/l10n/en_US.json');
+    final arJson = await rootBundle.loadString('lib/l10n/ar_SA.json');
+
+    setState(() {
+      _localizations = {
+        'en': Map<String, String>.from(json.decode(enJson)),
+        'ar': Map<String, String>.from(json.decode(arJson)),
+      };
+      _isLoaded = true;
+    });
+  }
+
+  String _translate(String key, {Map<String, String>? args}) {
+    String text = _localizations[_locale.languageCode]?[key] ?? key;
+    if (args != null) {
+      args.forEach((k, v) {
+        text = text.replaceAll('{$k}', v);
+      });
+    }
+    return text;
+  }
+
+  void _changeLanguage(String languageCode) {
+    setState(() {
+      _locale = Locale(languageCode);
+      _textDirection =
+          languageCode == 'ar' ? TextDirection.rtl : TextDirection.ltr;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (!_isLoaded) {
+      return const MaterialApp(
+        home: Scaffold(body: Center(child: CircularProgressIndicator())),
+      );
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Mobile Field Example'),
-          backgroundColor: Colors.blueAccent,
-          foregroundColor: Colors.white,
-          centerTitle: true,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(height: 30),
-                TextFormField(
-                    decoration: InputDecoration(
-                      labelText: "Name",
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.name),
-                const SizedBox(height: 10),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 10),
-                IntlMobileField(
-                  controller: controller,
-                  initialCountryCode: "GB",
-                  initialValue: controller.text,
-                  decoration: const InputDecoration(
-                    labelText: 'Mobile Number',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
-                  ),
-                  onCountryChanged: (country) {
-                    log('Country Dial Code: ${country.dialCode}');
-                    log('Country Code: ${country.code}');
-                  },
-                  invalidNumberMessage: "",
-                  favorite: ["BD", "US", "MY"],
-                  countries: ['BD', 'MY', 'US', 'AE', 'UK', 'NL', 'GB'],
-                  favoriteCountryCodePosition: Position.trailing,
-                  favoriteIcon: Icon(Icons.favorite),
-                  onChanged: (number) {
-                    setState(() {
-                      mobileNumber = "${number.countryCode}${number.number}";
-                    });
-                    log("full Number: $mobileNumber");
-                  },
-                  validator: (mobileNumber) {
-                    if (mobileNumber == null || mobileNumber.number.isEmpty) {
-                      return 'Please, Enter a mobile number';
-                    }
-                    if (!RegExp(r'^[0-9]+$').hasMatch(mobileNumber.number)) {
-                      return 'Only digits are allowed';
-                    }
-                    return null;
-                  },
-                  suffixIcon: Icon(Icons.contacts),
-                  lengthCounterTextStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: SizedBox(
-                    height: 50,
-                    width: double.infinity,
-                    child: MaterialButton(
-                      shape: ContinuousRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        _formKey.currentState?.validate();
-                      },
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+      locale: _locale,
+      supportedLocales: const [Locale('en', 'US'), Locale('ar', 'SA')],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      title: 'Mobile Field Example',
+      home: Directionality(
+        textDirection: _textDirection,
+        child: HomePage(
+          onLanguageChange: _changeLanguage,
+          currentLanguage: _locale.languageCode,
+          textDirection: _textDirection,
+          translate: _translate,
         ),
       ),
     );

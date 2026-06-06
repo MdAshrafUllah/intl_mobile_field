@@ -1,0 +1,13 @@
+{
+  "name": "Name",
+  "email": "Email",
+  "mobileNumber": "Mobile Number",
+  "submit": "Submit",
+  "formSubmitted": "Form submitted successfully!",
+  "enterNumber": "Entered Number: {number}",
+  "searchCountry": "Search Country",
+  "invalidMobileNumber": "Invalid mobile number",
+  "pleaseEnterMobile": "Please enter a mobile number",
+  "onlyDigitsAllowed": "Only digits are allowed",
+  "enterValidMobile": "Please enter a valid mobile number"
+}

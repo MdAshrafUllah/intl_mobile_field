@@ -3,7 +3,7 @@ import 'package:intl_mobile_field/countries.dart';
 import 'package:intl_mobile_field/country_picker_dialog.dart';
 import 'package:intl_mobile_field/intl_mobile_field.dart';
 
-class FlagsDropDown extends StatefulWidget {
+class CountryDropDown extends StatefulWidget {
   final ValueKey? flagsButtonKey;
 
   /// Won't work if [enabled] is set to `false`.
@@ -97,7 +97,16 @@ class FlagsDropDown extends StatefulWidget {
   /// CountryPicker DialogBox Height
   final double? countryPickerDialogBoxHeight;
 
-  const FlagsDropDown({
+  /// Country List Dense
+  final bool? dialogCountryListDense;
+
+  /// Show Country Name
+  final bool showCountryName;
+
+  /// Show Selected Country Flag
+  final bool showSelectedCountryFlag;
+
+  const CountryDropDown({
     super.key,
     this.flagsButtonKey,
     this.initialCountryCode = 'BD',
@@ -126,13 +135,16 @@ class FlagsDropDown extends StatefulWidget {
     this.countryCodeDisable = false,
     this.showFieldCountryFlag = true,
     this.countryPickerDialogBoxHeight,
+    this.dialogCountryListDense,
+    this.showCountryName = false,
+    this.showSelectedCountryFlag = true,
   });
 
   @override
-  State<FlagsDropDown> createState() => _FlagsDropDownState();
+  State<CountryDropDown> createState() => _FlagsDropDownState();
 }
 
-class _FlagsDropDownState extends State<FlagsDropDown> {
+class _FlagsDropDownState extends State<CountryDropDown> {
   late Country _selectedCountry;
 
   @override
@@ -166,6 +178,7 @@ class _FlagsDropDownState extends State<FlagsDropDown> {
           countryCodePosition: widget.dialogCountryCodePosition,
           countryList: widget.countries,
           countryPickerDialogBoxHeight: widget.countryPickerDialogBoxHeight,
+          dialogCountryListDense: widget.dialogCountryListDense,
           selectedCountry: _selectedCountry,
           onCountryChanged: (Country country) {
             if (mounted) {
@@ -189,7 +202,9 @@ class _FlagsDropDownState extends State<FlagsDropDown> {
   }
 
   Widget _buildFlag() {
-    if (!widget.showFieldCountryFlag) return const SizedBox();
+    if (!widget.showFieldCountryFlag || !widget.showSelectedCountryFlag) {
+      return const SizedBox.shrink();
+    }
     return Image.asset(
       'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
       package: 'intl_mobile_field',
@@ -202,6 +217,16 @@ class _FlagsDropDownState extends State<FlagsDropDown> {
       return const SizedBox();
     }
     return widget.dropdownIcon;
+  }
+
+  Widget _buildCountryName() {
+    return Flexible(
+      child: Text(
+        _selectedCountry.name,
+        overflow: TextOverflow.ellipsis,
+        style: widget.dropdownTextStyle,
+      ),
+    );
   }
 
   @override
@@ -228,7 +253,7 @@ class _FlagsDropDownState extends State<FlagsDropDown> {
                   const SizedBox(width: 8),
                 ],
                 if (widget.disableFlagTap) const SizedBox(width: 10),
-                _buildFlag(),
+                widget.showCountryName ? _buildCountryName() : _buildFlag(),
                 if (!widget.countryCodeDisable &&
                     widget.fieldCountryCodePosition == Position.trailing) ...[
                   const SizedBox(width: 4),
