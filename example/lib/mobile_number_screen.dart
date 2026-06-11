@@ -1,8 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:intl_mobile_field/countries.dart';
-import 'package:intl_mobile_field/flags_drop_down.dart';
+import 'package:intl_mobile_field/country_picker_dialog.dart';
+import 'package:intl_mobile_field/intl_mobile_field.dart';
+import 'package:intl_mobile_field/mobile_number.dart';
 
 class MobileNumberScreen extends StatefulWidget {
   final Function(String) onLanguageChange;
@@ -129,147 +130,149 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
               const SizedBox(height: 10),
 
               // IntlMobileField with RTL support
-              // IntlMobileField(
-              //   controller: mobileController,
-              //   enabled: true,
-              //   initialCountryCode: "BD",
-              //   favorite: const ['BD', 'US', 'MY'],
-              //   favoriteIcon: Icon(
-              //     Icons.star,
-              //     color: Colors.amber,
-              //   ),
-              //   // favoriteIconPosition: Position.leading,
-              //   decoration: InputDecoration(
-              //     labelText: t('mobileNumber'),
-              //     hintText: t('mobileNumber'),
-              //     hintTextDirection: TextDirection.ltr,
-              //     alignLabelWithHint: true,
-              //     errorMaxLines: 2,
-              //     contentPadding: EdgeInsets.symmetric(
-              //       horizontal: 10,
-              //       vertical: 14,
-              //     ),
-              //     border: const OutlineInputBorder(),
-              //   ),
-              //   textAlign: isRTL ? TextAlign.end : TextAlign.start,
-              //   autovalidateMode: AutovalidateMode.onUserInteraction,
-              //   invalidNumberMessage: t('invalidMobileNumber'),
-              //   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              //   flagsButtonPadding: EdgeInsetsDirectional.only(start: 8),
-              //   dropdownIconPosition:
-              //       isRTL ? Position.leading : Position.trailing,
-              //   dropdownIcon: Icon(
-              //     Icons.keyboard_arrow_down_rounded,
-              //     size: 20,
-              //     color: Colors.black54,
-              //   ),
-              //   pickerDialogStyle: PickerDialogStyle(
-              //     backgroundColor: Colors.white,
-              //     width: double.infinity,
-              //     listTileDivider: const Divider(),
-              //     padding: EdgeInsets.symmetric(
-              //       horizontal: 16,
-              //       vertical: 16,
-              //     ),
-              //     searchFieldInputDecoration: InputDecoration(
-              //       hintText: t('searchCountry'),
-              //       contentPadding: EdgeInsets.symmetric(horizontal: 16),
-              //       filled: true,
-              //       prefixIconConstraints: BoxConstraints(
-              //         maxWidth: 40,
-              //         minHeight: 20,
-              //       ),
-              //       prefixIcon: Padding(
-              //         padding: EdgeInsets.symmetric(horizontal: 12),
-              //         child: Icon(
-              //           Icons.search,
-              //           color: Colors.grey,
-              //         ),
-              //       ),
-              //       border: const OutlineInputBorder(
-              //           borderRadius: BorderRadius.all(Radius.circular(15))),
-              //       enabledBorder: const OutlineInputBorder(
-              //           borderRadius: BorderRadius.all(Radius.circular(15))),
-              //       focusedBorder: const OutlineInputBorder(
-              //           borderRadius: BorderRadius.all(Radius.circular(15))),
-              //       errorBorder: const OutlineInputBorder(
-              //           borderRadius: BorderRadius.all(Radius.circular(15))),
-              //     ),
-              //     countryCodeStyle: const TextStyle(
-              //       fontSize: 14,
-              //       fontWeight: FontWeight.w600,
-              //       color: Colors.black,
-              //     ),
-              //     countryNameStyle: const TextStyle(
-              //       fontSize: 14,
-              //       color: Colors.black87,
-              //     ),
-              //     searchFieldCursorColor: Colors.blue,
-              //   ),
-              //   dialogCountryListDense: false,
-              //   languageCode: widget.currentLanguage,
-              //   onCountryChanged: (country) {
-              //     log('Country Dial Code: ${country.dialCode}');
-              //     log('Country Code: ${country.code}');
-              //   },
-              //   onChanged: (MobileNumber number) {
-              //     setState(() {
-              //       mobileNumber = "${number.countryCode}${number.number}";
-              //     });
-
-              //     log("full Number: $mobileNumber");
-              //   },
-              //   onSubmitted: (_) {
-              //     log('onSubmitted: ${mobileController.text}');
-              //   },
-              //   validator: (MobileNumber? number) {
-              //     if (number == null || number.number.isEmpty) {
-              //       return t('pleaseEnterMobile');
-              //     }
-              //     if (!RegExp(r'^[0-9]+$').hasMatch(number.number)) {
-              //       return t('onlyDigitsAllowed');
-              //     }
-              //     if (number.number.length < 9) {
-              //       return t('enterValidMobile');
-              //     }
-              //     return null;
-              //   },
-              //   favoriteIconPosition: Position.trailing,
-              // ),
-              // const SizedBox(height: 10),
-              Row(
-                spacing: 10,
-                children: [
-                  Container(
-                    height: 48,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 0.6, color: Colors.black87),
-                      borderRadius: BorderRadius.circular(4.0),
-                    ),
-                    child: CountryDropDown(
-                      countries: countries,
-                      onCountryChanged: (value) {
-                        setState(() {
-                          countryCode = value.dialCode;
-                        });
-                      },
-                    ),
+              IntlMobileField(
+                controller: mobileController,
+                enabled: true,
+                initialCountryCode: "SA",
+                favorite: const ['BD', 'US', 'MY'],
+                // countries: ['SA', 'BD', 'US', 'MY', 'PK', 'JP', 'CN', 'JP'],
+                excludeCountries: true,
+                favoriteIcon: Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                // favoriteIconPosition: Position.leading,
+                decoration: InputDecoration(
+                  labelText: t('mobileNumber'),
+                  hintText: t('mobileNumber'),
+                  hintTextDirection: TextDirection.ltr,
+                  alignLabelWithHint: true,
+                  errorMaxLines: 2,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 14,
                   ),
-                  Expanded(
-                    child: TextFormField(
-                      controller: mobileControllerSeparate,
-                      decoration: InputDecoration(
-                        labelText: t('mobileNumber'),
-                        border: const OutlineInputBorder(),
-                        alignLabelWithHint: true,
+                  border: const OutlineInputBorder(),
+                ),
+                textAlign: isRTL ? TextAlign.end : TextAlign.start,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                invalidNumberMessage: t('invalidMobileNumber'),
+                // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                flagsButtonPadding: EdgeInsetsDirectional.only(start: 8),
+                dropdownIconPosition:
+                    isRTL ? Position.leading : Position.trailing,
+                dropdownIcon: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  size: 20,
+                  color: Colors.black54,
+                ),
+                pickerDialogStyle: PickerDialogStyle(
+                  backgroundColor: Colors.white,
+                  width: double.infinity,
+                  listTileDivider: const Divider(),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 16,
+                  ),
+                  searchFieldInputDecoration: InputDecoration(
+                    hintText: t('searchCountry'),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                    filled: true,
+                    prefixIconConstraints: BoxConstraints(
+                      maxWidth: 40,
+                      minHeight: 20,
+                    ),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.grey,
                       ),
-                      onChanged: (value) {
-                        log("Mobile: $countryCode$value");
-                      },
                     ),
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    errorBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
                   ),
-                ],
+                  countryCodeStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                  countryNameStyle: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black87,
+                  ),
+                  searchFieldCursorColor: Colors.blue,
+                ),
+                dialogCountryListDense: false,
+                languageCode: widget.currentLanguage,
+                onCountryChanged: (country) {
+                  log('Country Dial Code: ${country.dialCode}');
+                  log('Country Code: ${country.code}');
+                },
+                onChanged: (MobileNumber number) {
+                  setState(() {
+                    mobileNumber = "${number.countryCode}${number.number}";
+                  });
+
+                  log("full Number: $mobileNumber");
+                },
+                onSubmitted: (_) {
+                  log('onSubmitted: ${mobileController.text}');
+                },
+                validator: (MobileNumber? number) {
+                  if (number == null || number.number.isEmpty) {
+                    return t('pleaseEnterMobile');
+                  }
+                  if (!RegExp(r'^[0-9]+$').hasMatch(number.number)) {
+                    return t('onlyDigitsAllowed');
+                  }
+                  if (number.number.length < 9) {
+                    return t('enterValidMobile');
+                  }
+                  return null;
+                },
+                favoriteIconPosition: Position.trailing,
               ),
+              // const SizedBox(height: 10),
+              // Row(
+              //   spacing: 10,
+              //   children: [
+              //     Container(
+              //       height: 48,
+              //       decoration: BoxDecoration(
+              //         border: Border.all(width: 0.6, color: Colors.black87),
+              //         borderRadius: BorderRadius.circular(4.0),
+              //       ),
+              //       child: CountryDropDown(
+              //         countries: countries,
+              //         onCountryChanged: (value) {
+              //           setState(() {
+              //             countryCode = value.dialCode;
+              //           });
+              //         },
+              //       ),
+              //     ),
+              //     Expanded(
+              //       child: TextFormField(
+              //         controller: mobileControllerSeparate,
+              //         decoration: InputDecoration(
+              //           labelText: t('mobileNumber'),
+              //           border: const OutlineInputBorder(),
+              //           alignLabelWithHint: true,
+              //         ),
+              //         onChanged: (value) {
+              //           log("Mobile: $countryCode$value");
+              //         },
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(height: 20),
 
               // Submit Button

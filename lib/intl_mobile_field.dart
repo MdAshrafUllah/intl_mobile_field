@@ -326,78 +326,93 @@ class IntlMobileField extends StatefulWidget {
   /// add country List Dense
   final bool dialogCountryListDense;
 
-  const IntlMobileField(
-      {super.key,
-      this.formFieldKey,
-      this.scrollPadding = const EdgeInsets.all(20.0),
-      this.disableAutoFillHints = false,
-      this.obscureText = false,
-      this.textAlign = TextAlign.left,
-      this.textAlignVertical,
-      this.onTap,
-      this.readOnly = false,
-      this.initialValue,
-      this.keyboardType = TextInputType.phone,
-      this.controller,
-      this.focusNode,
-      this.decoration = const InputDecoration(),
-      this.style,
-      this.border,
-      this.fillColor,
-      this.prefixIconConstraints,
-      this.onSubmitted,
-      this.validator,
-      this.onChanged,
-      this.countries,
-      this.onSaved,
-      this.inputFormatters,
-      this.enabled = true,
-      this.keyboardAppearance,
-      this.autoFocus = false,
-      this.textInputAction,
-      this.autovalidateMode = AutovalidateMode.onUserInteraction,
-      this.cursorColor,
-      this.disableLengthCheck = false,
-      this.disableLengthCounter = false,
-      this.invalidNumberMessage = 'Invalid Mobile Number',
-      this.cursorHeight,
-      this.cursorRadius = Radius.zero,
-      this.cursorWidth = 2.0,
-      this.showCursor = true,
-      this.magnifierConfiguration,
-      this.expands = false,
-      this.maxLines = 1,
-      this.onTapOutside,
-      this.suffixIcon,
-      this.onCountryChanged,
-      this.flagsButtonKey,
-      this.initialCountryCode,
-      this.favorite = const [],
-      this.showDropdownIcon = true,
-      this.dropdownIcon = const Icon(Icons.arrow_drop_down),
-      this.dropdownIconPosition = Position.leading,
-      this.showDialogCountryFlag = true,
-      this.dropdownDecoration = const BoxDecoration(),
-      this.flagsButtonPadding = EdgeInsets.zero,
-      this.flagsButtonMargin = EdgeInsets.zero,
-      this.flagWidth = 32,
-      this.dropdownTextStyle,
-      this.disableFlagTap = false,
-      this.languageCode,
-      this.rltSupport = true,
-      this.pickerDialogStyle,
-      this.favoriteIcon,
-      this.favoriteIconPosition = Position.trailing,
-      this.enableFavoriteIcon,
-      this.fieldCountryCodePosition = Position.trailing,
-      this.favoriteCountryCodePosition = Position.trailing,
-      this.dialogCountryCodePosition = Position.trailing,
-      this.countryCodeDisable = false,
-      this.showFieldCountryFlag = true,
-      this.countryPickerDialogBoxHeight,
-      this.lengthCounterTextStyle,
-      this.textDirection = TextDirection.ltr,
-      this.dialogCountryListDense = false});
+  /// If true, clears the selected country to [initialCountryCode] when controller is cleared.
+  /// If false, keeps the currently selected country. Default is false.
+  final bool resetCountryOnClearField;
+
+  /// Determines how the [countries] list is interpreted.
+  ///
+  /// - When `false` (default), [countries] acts as an allowlist, meaning only
+  ///   the specified countries are included.
+  /// - When `true`, [countries] acts as a blocklist, meaning all countries are
+  ///   included except those specified in the list.
+  final bool excludeCountries;
+
+  const IntlMobileField({
+    super.key,
+    this.formFieldKey,
+    this.scrollPadding = const EdgeInsets.all(20.0),
+    this.disableAutoFillHints = false,
+    this.obscureText = false,
+    this.textAlign = TextAlign.left,
+    this.textAlignVertical,
+    this.onTap,
+    this.readOnly = false,
+    this.initialValue,
+    this.keyboardType = TextInputType.phone,
+    this.controller,
+    this.focusNode,
+    this.decoration = const InputDecoration(),
+    this.style,
+    this.border,
+    this.fillColor,
+    this.prefixIconConstraints,
+    this.onSubmitted,
+    this.validator,
+    this.onChanged,
+    this.countries,
+    this.onSaved,
+    this.inputFormatters,
+    this.enabled = true,
+    this.keyboardAppearance,
+    this.autoFocus = false,
+    this.textInputAction,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.cursorColor,
+    this.disableLengthCheck = false,
+    this.disableLengthCounter = false,
+    this.invalidNumberMessage = 'Invalid Mobile Number',
+    this.cursorHeight,
+    this.cursorRadius = Radius.zero,
+    this.cursorWidth = 2.0,
+    this.showCursor = true,
+    this.magnifierConfiguration,
+    this.expands = false,
+    this.maxLines = 1,
+    this.onTapOutside,
+    this.suffixIcon,
+    this.onCountryChanged,
+    this.flagsButtonKey,
+    this.initialCountryCode,
+    this.favorite = const [],
+    this.showDropdownIcon = true,
+    this.dropdownIcon = const Icon(Icons.arrow_drop_down),
+    this.dropdownIconPosition = Position.leading,
+    this.showDialogCountryFlag = true,
+    this.dropdownDecoration = const BoxDecoration(),
+    this.flagsButtonPadding = EdgeInsets.zero,
+    this.flagsButtonMargin = EdgeInsets.zero,
+    this.flagWidth = 32,
+    this.dropdownTextStyle,
+    this.disableFlagTap = false,
+    this.languageCode,
+    this.rltSupport = true,
+    this.pickerDialogStyle,
+    this.favoriteIcon,
+    this.favoriteIconPosition = Position.trailing,
+    this.enableFavoriteIcon,
+    this.fieldCountryCodePosition = Position.trailing,
+    this.favoriteCountryCodePosition = Position.trailing,
+    this.dialogCountryCodePosition = Position.trailing,
+    this.countryCodeDisable = false,
+    this.showFieldCountryFlag = true,
+    this.countryPickerDialogBoxHeight,
+    this.lengthCounterTextStyle,
+    this.textDirection = TextDirection.ltr,
+    this.dialogCountryListDense = false,
+    this.resetCountryOnClearField = false,
+    this.excludeCountries = false,
+  });
 
   @override
   State<IntlMobileField> createState() => _IntlMobileFieldState();
@@ -430,11 +445,11 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
     super.initState();
 
     if (widget.countries != null && widget.countries!.isNotEmpty) {
-      countryList = countries
-          .where((c) =>
-              widget.countries!.contains(c.code.toUpperCase()) ||
-              widget.countries!.contains(c.dialCode))
-          .toList();
+      countryList = countries.where((c) {
+        final match = widget.countries!.contains(c.code.toUpperCase()) ||
+            widget.countries!.contains(c.dialCode);
+        return widget.excludeCountries ? !match : match;
+      }).toList();
     } else {
       countryList = countries;
     }
@@ -491,17 +506,19 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
     // CASE 1: Text is empty → reset to default country
     if (cleanText.isEmpty) {
-      final fallbackCode = widget.initialCountryCode ?? 'BD';
-      final defaultCountry = countryList.firstWhere(
-        (country) => country.code.toUpperCase() == fallbackCode.toUpperCase(),
-        orElse: () => countryList.first,
-      );
+      if (widget.resetCountryOnClearField) {
+        final fallbackCode = widget.initialCountryCode ?? 'BD';
+        final defaultCountry = countryList.firstWhere(
+          (country) => country.code.toUpperCase() == fallbackCode.toUpperCase(),
+          orElse: () => countryList.first,
+        );
 
-      if (_selectedCountry.code != defaultCountry.code) {
-        setState(() {
-          _selectedCountry = defaultCountry;
-        });
-        widget.onCountryChanged?.call(defaultCountry);
+        if (_selectedCountry.code != defaultCountry.code) {
+          setState(() {
+            _selectedCountry = defaultCountry;
+          });
+          widget.onCountryChanged?.call(defaultCountry);
+        }
       }
 
       setState(() => number = '');
@@ -511,7 +528,8 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
     // CASE 2: Starts with '+' → Try detecting new country
     if (cleanText.startsWith('+')) {
-      final newCountry = _getInitialCountry(cleanText);
+      final newCountry =
+          _getInitialCountry(cleanText, currentCountry: _selectedCountry);
       final stripped = _stripCountryCode(cleanText, newCountry);
 
       // Update country if changed
@@ -548,12 +566,14 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
     widget.onChanged?.call(_buildMobileNumber(stripped));
   }
 
-  Country _getInitialCountry(String number) {
+  Country _getInitialCountry(String number, {Country? currentCountry}) {
     // Clean the number first
     final cleanNumber = number.replaceAll(RegExp(r'[^+0-9]'), '');
 
     if (cleanNumber.startsWith('+')) {
       final withoutPlus = cleanNumber.substring(1);
+
+      if (withoutPlus.isEmpty) return currentCountry ?? _selectedCountry;
 
       // Try exact match (dialCode + regionCode)
       for (final country in countryList) {
@@ -569,6 +589,8 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
           return country;
         }
       }
+
+      return currentCountry ?? _selectedCountry;
     }
 
     // Final fallback to BD or first country
