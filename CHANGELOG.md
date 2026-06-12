@@ -1,4 +1,10 @@
-## [2.1.5] - Release 🚀
+## [2.1.6] - Release 🚀
+
+- Added `resetCountryOnClearField` to restore the initial country when the field is cleared
+- Added `excludeCountries` to exclude specific countries from the picker
+- Added `onMaxLengthReached` callback for maximum number length detection
+
+## [2.1.5] - Release
 
 - **Breaking**: `FlagDropDown` renamed to `CountryDropDown`
 - **Flexible display**: From `CountryDropDown` you can use what you need (country name, code, flag, or any combination)

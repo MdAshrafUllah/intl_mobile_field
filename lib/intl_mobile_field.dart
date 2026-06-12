@@ -338,6 +338,9 @@ class IntlMobileField extends StatefulWidget {
   ///   included except those specified in the list.
   final bool excludeCountries;
 
+  /// Called when the number reaches the maximum length for the selected country.
+  final VoidCallback? onMaxLengthReached;
+
   const IntlMobileField({
     super.key,
     this.formFieldKey,
@@ -412,6 +415,7 @@ class IntlMobileField extends StatefulWidget {
     this.dialogCountryListDense = false,
     this.resetCountryOnClearField = false,
     this.excludeCountries = false,
+    this.onMaxLengthReached,
   });
 
   @override
@@ -425,6 +429,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
   String? asyncValidationMessage;
   bool isValidating = false;
   String initial = "";
+  bool _maxLengthReached = false;
 
   Timer? _debounceTimer;
 
@@ -532,6 +537,16 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
           _getInitialCountry(cleanText, currentCountry: _selectedCountry);
       final stripped = _stripCountryCode(cleanText, newCountry);
 
+      final reachedMax = stripped.length >= newCountry.maxLength;
+      if (reachedMax && !_maxLengthReached) {
+        _maxLengthReached = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          widget.onMaxLengthReached?.call();
+        });
+      } else if (!reachedMax) {
+        _maxLengthReached = false;
+      }
+
       // Update country if changed
       if (newCountry.code != _selectedCountry.code) {
         setState(() {
@@ -562,6 +577,15 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
     // CASE 3: Normal editing — preserve current country
     final stripped = _stripCountryCode(cleanText, _selectedCountry);
+    final reachedMax = stripped.length >= _selectedCountry.maxLength;
+    if (reachedMax && !_maxLengthReached) {
+      _maxLengthReached = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.onMaxLengthReached?.call();
+      });
+    } else if (!reachedMax) {
+      _maxLengthReached = false;
+    }
     setState(() => number = stripped);
     widget.onChanged?.call(_buildMobileNumber(stripped));
   }
@@ -577,6 +601,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
       // Try exact match (dialCode + regionCode)
       for (final country in countryList) {
+        if (country.regionCode.isEmpty) continue;
         final fullCode = country.dialCode + country.regionCode;
         if (withoutPlus.startsWith(fullCode)) {
           return country;
@@ -585,19 +610,14 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 
       // Fallback to just dialCode match
       for (final country in countryList) {
+        if (country.regionCode.isNotEmpty) continue;
         if (withoutPlus.startsWith(country.dialCode)) {
           return country;
         }
       }
-
-      return currentCountry ?? _selectedCountry;
     }
 
-    // Final fallback to BD or first country
-    return countryList.firstWhere(
-      (c) => c.code == 'BD',
-      orElse: () => countryList.first,
-    );
+    return currentCountry ?? countryList.first;
   }
 
   String _stripCountryCode(String number, Country country) {

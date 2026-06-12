@@ -1,6 +1,6 @@
 <br/>
 <p align="center">                    
-<img  src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/intl_mobile_field.png?raw=true" height="200" alt="intl_mobile_field logo">                    
+<img  src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/intl_mobile_field.png?raw=true" height="200" width="260" alt="intl_mobile_field logo">                    
 </p>
 
 <p align="center">                    
@@ -34,7 +34,7 @@ flutter pub add intl_mobile_field
 Or, add the following to your `pubspec.yaml` file under `dependencies`:
 
 ```yaml
-intl_mobile_field: ^2.1.5
+intl_mobile_field: ^2.1.6
 ```
 
 Sometimes you may want to use the latest version of the package, instead of a published version. To do that, use the `git` syntax:
@@ -269,22 +269,44 @@ IntlMobileField(
 
 #### Example 8 (Custom Country List)
 
-You can limit the country List. Otherwise, it shows all countries by default.
+By default, all countries are available.
+
+Use the `countries` property to control which countries appear:
+
+**Allow only specific countries (default behavior):**
 
 ```dart
 IntlMobileField(
   initialCountryCode: "BD",
-  decoration: InputDecoration(
+  decoration: const InputDecoration(
     labelText: "Mobile Number",
     border: OutlineInputBorder(),
   ),
-  countries: ['BD', 'MY', 'US', 'AE', 'UK', 'NL'], // ['880', '60', '971'],
-),
+  countries: ['BD', 'MY', 'US', 'AE', 'UK', 'NL'], // or ['880', '60', '971']
+)
 ```
+
+**Exclude specific countries:**
+
+```dart
+IntlMobileField(
+  initialCountryCode: "BD",
+  decoration: const InputDecoration(
+    labelText: "Mobile Number",
+    border: OutlineInputBorder(),
+  ),
+  countries: ['IL'],
+  excludeCountries: true,
+)
+```
+
+In the second example, all countries will be available **except** Israel (`IL`).
 
 #### Output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/15.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/16.png?raw=true" height="500px" width="250px">
+| Dial Code                                                                                                                       | Country Code                                                                                                                   | Except Country                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/15.png?raw=true" height="500px" width="250px">) | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/16.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/20.png?raw=true" height="500px" width="250px"> |
 
 #### RTL Support
 

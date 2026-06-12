@@ -37,6 +37,16 @@ void main() {
       expect(mobileNumber.isValidNumber(), true);
     });
 
+    test('create a UK number', () {
+      MobileNumber mobileNumber = MobileNumber(
+          countryISOCode: "GB", countryCode: "+44", number: "7966980235");
+      String actual = mobileNumber.completeNumber;
+      String expected = "+447966980235";
+
+      expect(actual, expected);
+      expect(mobileNumber.isValidNumber(), true);
+    });
+
     test('look up Saudi Arabia as a country code +966512345678', () {
       Country country = MobileNumber.getCountry("+966512345678");
       expect(country.name, "Saudi Arabia");

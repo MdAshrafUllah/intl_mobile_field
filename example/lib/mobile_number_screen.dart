@@ -133,9 +133,9 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
               IntlMobileField(
                 controller: mobileController,
                 enabled: true,
-                initialCountryCode: "SA",
+                initialCountryCode: "BD",
                 favorite: const ['BD', 'US', 'MY'],
-                // countries: ['SA', 'BD', 'US', 'MY', 'PK', 'JP', 'CN', 'JP'],
+                countries: ['IL'],
                 excludeCountries: true,
                 favoriteIcon: Icon(
                   Icons.star,
@@ -229,7 +229,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                   if (number == null || number.number.isEmpty) {
                     return t('pleaseEnterMobile');
                   }
-                  if (!RegExp(r'^[0-9]+$').hasMatch(number.number)) {
+                  if (!RegExp(r'^\+?[0-9]+$').hasMatch(number.number)) {
                     return t('onlyDigitsAllowed');
                   }
                   if (number.number.length < 9) {
@@ -238,6 +238,9 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                   return null;
                 },
                 favoriteIconPosition: Position.trailing,
+                onMaxLengthReached: () {
+                  FocusScope.of(context).nextFocus();
+                },
               ),
               // const SizedBox(height: 10),
               // Row(
