@@ -306,7 +306,7 @@ In the second example, all countries will be available **except** Israel (`IL`).
 
 | Dial Code                                                                                                                       | Country Code                                                                                                                   | Except Country                                                                                                                 |
 | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/15.png?raw=true" height="500px" width="250px">) | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/16.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/20.png?raw=true" height="500px" width="250px"> |
+| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/15.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/16.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/20.png?raw=true" height="500px" width="250px"> |
 
 #### RTL Support
 
