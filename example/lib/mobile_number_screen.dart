@@ -7,14 +7,12 @@ import 'package:intl_mobile_field/mobile_number.dart';
 
 class MobileNumberScreen extends StatefulWidget {
   final Function(String) onLanguageChange;
-  final String currentLanguage;
   final TextDirection textDirection;
   final String Function(String, {Map<String, String>? args}) translate;
 
   const MobileNumberScreen({
     Key? key,
     required this.onLanguageChange,
-    required this.currentLanguage,
     required this.textDirection,
     required this.translate,
   }) : super(key: key);
@@ -68,7 +66,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                value: widget.currentLanguage,
+                value: Localizations.localeOf(context).languageCode,
                 icon: const Icon(Icons.language, color: Colors.white),
                 dropdownColor: Colors.white,
                 borderRadius: BorderRadius.circular(12),
@@ -86,7 +84,9 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                   );
                 }).toList(),
                 onChanged: (String? newValue) {
-                  if (newValue != null && newValue != widget.currentLanguage) {
+                  if (newValue != null &&
+                      newValue !=
+                          Localizations.localeOf(context).languageCode) {
                     widget.onLanguageChange(newValue);
                   }
                 },
@@ -166,6 +166,7 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                   size: 20,
                   color: Colors.black54,
                 ),
+                languageCode: Localizations.localeOf(context).languageCode,
                 pickerDialogStyle: PickerDialogStyle(
                   backgroundColor: Colors.white,
                   width: double.infinity,
@@ -210,7 +211,6 @@ class _MobileNumberScreenState extends State<MobileNumberScreen> {
                   searchFieldCursorColor: Colors.blue,
                 ),
                 dialogCountryListDense: false,
-                languageCode: widget.currentLanguage,
                 onCountryChanged: (country) {
                   log('Country Dial Code: ${country.dialCode}');
                   log('Country Code: ${country.code}');

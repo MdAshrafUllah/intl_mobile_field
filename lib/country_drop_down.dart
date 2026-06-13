@@ -106,6 +106,9 @@ class CountryDropDown extends StatefulWidget {
   /// Show Selected Country Flag
   final bool showSelectedCountryFlag;
 
+  /// Search By Name or Dial Code
+  final SearchBy searchBy;
+
   const CountryDropDown({
     super.key,
     this.flagsButtonKey,
@@ -138,6 +141,7 @@ class CountryDropDown extends StatefulWidget {
     this.dialogCountryListDense,
     this.showCountryName = false,
     this.showSelectedCountryFlag = true,
+    this.searchBy = SearchBy.both,
   });
 
   @override
@@ -164,6 +168,7 @@ class _FlagsDropDownState extends State<CountryDropDown> {
       context: context,
       useRootNavigator: false,
       builder: (context) => CountryPickerDialog(
+          searchBy: widget.searchBy,
           showDialogCountryFlag: widget.showDialogCountryFlag,
           disableCountryCode: widget.countryCodeDisable,
           languageCode: widget.languageCode?.toLowerCase() ?? 'en',

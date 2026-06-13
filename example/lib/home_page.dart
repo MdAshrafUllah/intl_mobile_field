@@ -4,14 +4,12 @@ import 'package:intl_mobile_field_example/mobile_number_screen.dart';
 
 class HomePage extends StatelessWidget {
   final Function(String) onLanguageChange;
-  final String currentLanguage;
   final TextDirection textDirection;
   final String Function(String, {Map<String, String>? args}) translate;
 
   const HomePage({
     Key? key,
     required this.onLanguageChange,
-    required this.currentLanguage,
     required this.textDirection,
     required this.translate,
   }) : super(key: key);
@@ -36,7 +34,6 @@ class HomePage extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (_) => MobileNumberScreen(
                     onLanguageChange: onLanguageChange,
-                    currentLanguage: currentLanguage,
                     textDirection: textDirection,
                     translate: translate,
                   ),

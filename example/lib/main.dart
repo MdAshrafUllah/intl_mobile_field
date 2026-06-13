@@ -81,7 +81,6 @@ class _MyAppState extends State<MyApp> {
         textDirection: _textDirection,
         child: HomePage(
           onLanguageChange: _changeLanguage,
-          currentLanguage: _locale.languageCode,
           textDirection: _textDirection,
           translate: _translate,
         ),

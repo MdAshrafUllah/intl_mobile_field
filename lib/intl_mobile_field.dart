@@ -5,8 +5,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_mobile_field/countries.dart';
+import 'package:intl_mobile_field/country_drop_down.dart';
 import 'package:intl_mobile_field/country_picker_dialog.dart';
-import 'package:intl_mobile_field/flags_drop_down.dart';
 import 'package:intl_mobile_field/helpers.dart';
 import 'package:intl_mobile_field/mobile_number.dart';
 
@@ -341,6 +341,13 @@ class IntlMobileField extends StatefulWidget {
   /// Called when the number reaches the maximum length for the selected country.
   final VoidCallback? onMaxLengthReached;
 
+  /// Determines how the country search works in the picker dialog.
+  ///
+  /// - [SearchBy.name] searches by country name only.
+  /// - [SearchBy.dialCode] searches by dial code only (e.g. '880', '+880').
+  /// - [SearchBy.both] (default) searches by both name and dial code.
+  final SearchBy searchBy;
+
   const IntlMobileField({
     super.key,
     this.formFieldKey,
@@ -416,6 +423,7 @@ class IntlMobileField extends StatefulWidget {
     this.resetCountryOnClearField = false,
     this.excludeCountries = false,
     this.onMaxLengthReached,
+    this.searchBy = SearchBy.both,
   });
 
   @override
@@ -749,6 +757,7 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
           showFieldCountryFlag: widget.showFieldCountryFlag,
           countryPickerDialogBoxHeight: widget.countryPickerDialogBoxHeight,
           dialogCountryListDense: widget.dialogCountryListDense,
+          searchBy: widget.searchBy,
         ),
         counterText: widget.enabled ? null : '',
         border: widget.border,
@@ -820,3 +829,5 @@ class _IntlMobileFieldState extends State<IntlMobileField> {
 }
 
 enum Position { leading, trailing }
+
+enum SearchBy { name, dialCode, both }

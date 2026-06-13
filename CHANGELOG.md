@@ -1,8 +1,15 @@
-## [2.1.6] - Release 🚀
+## [2.1.7] - Release 🚀
 
-- Added `resetCountryOnClearField` to restore the initial country when the field is cleared
-- Added `excludeCountries` to exclude specific countries from the picker
-- Added `onMaxLengthReached` callback for maximum number length detection
+- **New** Added `searchBy` to customize country search behavior in the picker dialog
+- **New** Supports searching by country name, dial code, or both
+- **New** `SearchBy.both` is now the default search behavior
+- Readme file updated.
+
+## [2.1.6] - Release
+
+- **New** Added `resetCountryOnClearField` to restore the initial country when the field is cleared
+- **New** Added `excludeCountries` to exclude specific countries from the picker
+- **New** Added `onMaxLengthReached` callback for maximum number length detection
 
 ## [2.1.5] - Release
 

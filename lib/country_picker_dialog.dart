@@ -61,26 +61,29 @@ class CountryPickerDialog extends StatefulWidget {
   final bool showDialogCountryFlag;
   final double? countryPickerDialogBoxHeight;
   final bool? dialogCountryListDense;
+  final SearchBy searchBy;
 
-  const CountryPickerDialog(
-      {super.key,
-      required this.countryList,
-      required this.onCountryChanged,
-      required this.selectedCountry,
-      required this.filteredFavoriteCountries,
-      required this.disableCountryCode,
-      required this.favoriteCountryCodePosition,
-      required this.countryCodePosition,
-      required this.favoriteIconPosition,
-      required this.showDialogCountryFlag,
-      this.enableFavoriteIcon = true,
-      this.rltSupport = true,
-      this.languageCode = 'en',
-      this.favorite = const [],
-      this.style,
-      this.favoriteIcon,
-      this.countryPickerDialogBoxHeight,
-      this.dialogCountryListDense});
+  const CountryPickerDialog({
+    super.key,
+    required this.countryList,
+    required this.onCountryChanged,
+    required this.selectedCountry,
+    required this.filteredFavoriteCountries,
+    required this.disableCountryCode,
+    required this.favoriteCountryCodePosition,
+    required this.countryCodePosition,
+    required this.favoriteIconPosition,
+    required this.showDialogCountryFlag,
+    this.enableFavoriteIcon = true,
+    this.rltSupport = true,
+    this.languageCode = 'en',
+    this.favorite = const [],
+    this.style,
+    this.favoriteIcon,
+    this.countryPickerDialogBoxHeight,
+    this.dialogCountryListDense,
+    this.searchBy = SearchBy.both,
+  });
 
   @override
   State<CountryPickerDialog> createState() => _CountryPickerDialogState();
@@ -206,28 +209,37 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
   }
 
   void search(String value) {
-    final query = value.toLowerCase();
+    final query = value.toLowerCase().trim();
+    final cleanQuery = query.startsWith('+') ? query.substring(1) : query;
+
+    bool matches(Country item) {
+      switch (widget.searchBy) {
+        case SearchBy.name:
+          return item
+              .localizedName(widget.languageCode)
+              .toLowerCase()
+              .contains(query);
+        case SearchBy.dialCode:
+          return item.dialCode.contains(cleanQuery) ||
+              item.fullCountryCode.contains(cleanQuery);
+        case SearchBy.both:
+          return item
+                  .localizedName(widget.languageCode)
+                  .toLowerCase()
+                  .contains(query) ||
+              item.dialCode.contains(cleanQuery) ||
+              item.fullCountryCode.contains(cleanQuery);
+      }
+    }
 
     _filteredCountries = widget.countryList
-        .where((item) =>
-            !widget.favorite.contains(item.code) &&
-            item
-                .localizedName(widget.languageCode)
-                .toLowerCase()
-                .contains(query))
+        .where((item) => !widget.favorite.contains(item.code) && matches(item))
         .toList()
-      ..sort(
-        (a, b) => a
-            .localizedName(widget.languageCode)
-            .compareTo(b.localizedName(widget.languageCode)),
-      );
+      ..sort((a, b) => a
+          .localizedName(widget.languageCode)
+          .compareTo(b.localizedName(widget.languageCode)));
 
-    _filteredFavoriteCountries = _favoriteCountries
-        .where((item) => item
-            .localizedName(widget.languageCode)
-            .toLowerCase()
-            .contains(query))
-        .toList();
+    _filteredFavoriteCountries = _favoriteCountries.where(matches).toList();
   }
 
   Widget _buildCountryPickerItem({

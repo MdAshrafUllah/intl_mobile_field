@@ -20,6 +20,7 @@ A customized Flutter TextFormField to input an international Mobile number along
 - [Contributing](#contributing)
 - [Maintainers](#maintainers)
 - [LICENSE](#license)
+- [Support the Package](#support-the-package)
 
 ## Installing
 
@@ -34,7 +35,7 @@ flutter pub add intl_mobile_field
 Or, add the following to your `pubspec.yaml` file under `dependencies`:
 
 ```yaml
-intl_mobile_field: ^2.1.6
+intl_mobile_field: ^2.1.7
 ```
 
 Sometimes you may want to use the latest version of the package, instead of a published version. To do that, use the `git` syntax:
@@ -81,7 +82,12 @@ IntlMobileField(
 
 #### output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/2.png?raw=true" height="500px" width="250px">
+<table>
+  <tr>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px" alt="Screenshot 1"></td>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/2.png?raw=true" height="500px" width="250px" alt="Screenshot 2"></td>
+  </tr>
+</table>
 
 #### Example: 2 (Custom Mobile Field)
 
@@ -123,7 +129,11 @@ Row(
 
 #### output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/11.png?raw=true" height="500px" width="250px">
+<table>
+  <tr>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/11.png?raw=true" height="500px" width="250px" alt="Screenshot 11"></td>
+  </tr>
+</table>
 
 #### Example: 3 (with favorite - style one)
 
@@ -156,7 +166,13 @@ IntlMobileField(
 
 #### output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/6.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/5.png?raw=true" height="500px" width="250px">
+<table>
+  <tr>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px" alt="Screenshot 1"></td>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/6.png?raw=true" height="500px" width="250px" alt="Screenshot 6"></td>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/5.png?raw=true" height="500px" width="250px" alt="Screenshot 5"></td>
+  </tr>
+</table>
 
 #### Example: 4 (with favorite - style two)
 
@@ -188,7 +204,12 @@ IntlMobileField(
 
 #### output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/4.png?raw=true" height="500px" width="250px">
+<table>
+  <tr>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/1.png?raw=true" height="500px" width="250px" alt="Screenshot 1"></td>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/4.png?raw=true" height="500px" width="250px" alt="Screenshot 4"></td>
+  </tr>
+</table>
 
 Use `initialCountryCode` to set an initial Country Code.
 
@@ -218,7 +239,12 @@ CountryDropDown(
 
 #### Output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/9.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/10.png?raw=true" height="500px" width="250px">
+<table>
+  <tr>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/9.png?raw=true" height="500px" width="250px" alt="Screenshot 9"></td>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/10.png?raw=true" height="500px" width="250px" alt="Screenshot 10"></td>
+  </tr>
+</table>
 
 #### Example 6 (Validation Message)
 
@@ -236,7 +262,11 @@ IntlMobileField(
 
 #### Output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/12.png?raw=true" height="500px" width="250px">
+<table>
+  <tr>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/12.png?raw=true" height="500px" width="250px" alt="Screenshot 12"></td>
+  </tr>
+</table>
 
 #### Example 7 (Custom Validation)
 
@@ -265,7 +295,12 @@ IntlMobileField(
 
 #### Output
 
-<img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/13.png?raw=true" height="500px" width="250px"> <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/14.png?raw=true" height="500px" width="250px">
+<table>
+  <tr>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/13.png?raw=true" height="500px" width="250px" alt="Screenshot 13"></td>
+    <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/14.png?raw=true" height="500px" width="250px" alt="Screenshot 14"></td>
+  </tr>
+</table>
 
 #### Example 8 (Custom Country List)
 
@@ -304,9 +339,86 @@ In the second example, all countries will be available **except** Israel (`IL`).
 
 #### Output
 
-| Dial Code                                                                                                                       | Country Code                                                                                                                   | Except Country                                                                                                                 |
-| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/15.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/16.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/20.png?raw=true" height="500px" width="250px"> |
+<table>
+  <thead>
+    <tr>
+      <th>Dial Code</th>
+      <th>Country Code</th>
+      <th>Except Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/15.png?raw=true" height="500px" width="250px" alt="Dial Code Screenshot"></td>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/16.png?raw=true" height="500px" width="250px" alt="Country Code Screenshot"></td>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/20.png?raw=true" height="500px" width="250px" alt="Except Country Screenshot"></td>
+    </tr>
+  </tbody>
+</table>
+
+#### Search By
+
+Control how users can search for countries in the picker dialog.
+
+Use **`searchBy`** to choose the search behavior.
+
+- **`SearchBy.name`** searches by country name only.
+- **`SearchBy.dialCode`** searches by country dial code only (for example: `880` or `+880`).
+- **`SearchBy.both`** _(default)_ searches by both country name and dial code.
+
+#### Example
+
+```dart
+IntlMobileField(
+  searchBy: SearchBy.both,
+)
+```
+
+#### Available Options
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>SearchBy.name</code></td>
+      <td>Search by country name only.</td>
+    </tr>
+    <tr>
+      <td><code>SearchBy.dialCode</code></td>
+      <td>Search by country dial code only.</td>
+    </tr>
+    <tr>
+      <td><code>SearchBy.both</code></td>
+      <td>Search by both country name and dial code <em>(default)</em>.</td>
+    </tr>
+  </tbody>
+</table>
+
+#### Output
+
+<table>
+  <thead>
+    <tr>
+      <th align="center">SearchBy.name</th>
+      <th align="center">SearchBy.dialCode</th>
+      <th align="center">SearchBy.dialCode (without '+')</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/21.png?raw=true" height="500px" width="250px" alt="SearchBy.name Screenshot"></td>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/22.png?raw=true" height="500px" width="250px" alt="SearchBy.dialCode Screenshot"></td>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/23.png?raw=true" height="500px" width="250px" alt="SearchBy.dialCode (without '+') Screenshot"></td>
+    </tr>
+  </tbody>
+</table>
+
+> **Note:** `SearchBy.both` is the default behavior, so you only need to set `searchBy` if you want to restrict the search.
 
 #### RTL Support
 
@@ -314,31 +426,99 @@ If you select **`languageCode`** Arabic, Urdu, Persian, or Cantonese (Chinese), 
 
 #### output
 
-| **LRT Languages**                                                                                                              | **RLT Language**                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/8.png?raw=true" height="500px" width="250px">  | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/7.png?raw=true" height="500px" width="250px">  |
-| <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/17.png?raw=true" height="500px" width="250px"> | <img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/18.png?raw=true" height="500px" width="250px"> |
+<table>
+  <thead>
+    <tr>
+      <th><strong>LRT Languages</strong></th>
+      <th><strong>RLT Language</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/8.png?raw=true" height="500px" width="250px" alt="LRT Languages Screenshot 1"></td>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/7.png?raw=true" height="500px" width="250px" alt="RLT Language Screenshot 1"></td>
+    </tr>
+    <tr>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/17.png?raw=true" height="500px" width="250px" alt="LRT Languages Screenshot 2"></td>
+      <td><img src="https://github.com/MdAshrafUllah/intl_mobile_field/blob/master/output/18.png?raw=true" height="500px" width="250px" alt="RLT Language Screenshot 2"></td>
+    </tr>
+  </tbody>
+</table>
 
 ## Supported Languages
 
 #### We support more than 26 languages, including:
 
-| **No** | **Code** | **Language**       | **No** | **Code**    | **Language**         |
-| ------ | -------- | ------------------ | ------ | ----------- | -------------------- |
-| 01     | **hu**   | Hungarian          | 15     | **ar**      | Arabic               |
-| 02     | **sk**   | Slovak             | 16     | **fa**      | Persian              |
-| 03     | **se**   | Swedish            | 17     | **yue**     | Cantonese (Chinese)  |
-| 04     | **pl**   | Polish             | 18     | **bd**      | Bangla (Bangladesh)  |
-| 05     | **no**   | Norwegian          | 19     | **in**      | Hindi (India)        |
-| 06     | **ja**   | Japanese           | 20     | **ur**      | Urdu (Pakistan)      |
-| 07     | **it**   | Italian            | 21     | **pt_br**   | Brazilian Portuguese |
-| 08     | **zh**   | Simplified Chinese | 22     | **sr_cyrl** | Serbian (Cyrillic)   |
-| 09     | **nl**   | Dutch              | 23     | **sr_latn** | Serbian (Latin)      |
-| 10     | **de**   | German             | 24     | **zh_tw**   | Traditional Chinese  |
-| 11     | **fr**   | French             | 25     | **tr**      | Turkish              |
-| 12     | **es**   | Spanish            | 26     | **ro**      | Romanian             |
-| 13     | **en**   | English            | 27     | **pt**      | Portuguese           |
-| 14     | **vi**   | Vietnamese         |        |             |                      |
+<table>
+  <thead>
+    <tr>
+      <th><strong>No</strong></th>
+      <th><strong>Code</strong></th>
+      <th><strong>Language</strong></th>
+      <th><strong>No</strong></th>
+      <th><strong>Code</strong></th>
+      <th><strong>Language</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>01</td><td><strong>hu</strong></td><td>Hungarian</td>
+      <td>15</td><td><strong>ar</strong></td><td>Arabic</td>
+    </tr>
+    <tr>
+      <td>02</td><td><strong>sk</strong></td><td>Slovak</td>
+      <td>16</td><td><strong>fa</strong></td><td>Persian</td>
+    </tr>
+    <tr>
+      <td>03</td><td><strong>se</strong></td><td>Swedish</td>
+      <td>17</td><td><strong>yue</strong></td><td>Cantonese (Chinese)</td>
+    </tr>
+    <tr>
+      <td>04</td><td><strong>pl</strong></td><td>Polish</td>
+      <td>18</td><td><strong>bd</strong></td><td>Bangla (Bangladesh)</td>
+    </tr>
+    <tr>
+      <td>05</td><td><strong>no</strong></td><td>Norwegian</td>
+      <td>19</td><td><strong>in</strong></td><td>Hindi (India)</td>
+    </tr>
+    <tr>
+      <td>06</td><td><strong>ja</strong></td><td>Japanese</td>
+      <td>20</td><td><strong>ur</strong></td><td>Urdu (Pakistan)</td>
+    </tr>
+    <tr>
+      <td>07</td><td><strong>it</strong></td><td>Italian</td>
+      <td>21</td><td><strong>pt_br</strong></td><td>Brazilian Portuguese</td>
+    </tr>
+    <tr>
+      <td>08</td><td><strong>zh</strong></td><td>Simplified Chinese</td>
+      <td>22</td><td><strong>sr_cyrl</strong></td><td>Serbian (Cyrillic)</td>
+    </tr>
+    <tr>
+      <td>09</td><td><strong>nl</strong></td><td>Dutch</td>
+      <td>23</td><td><strong>sr_latn</strong></td><td>Serbian (Latin)</td>
+    </tr>
+    <tr>
+      <td>10</td><td><strong>de</strong></td><td>German</td>
+      <td>24</td><td><strong>zh_tw</strong></td><td>Traditional Chinese</td>
+    </tr>
+    <tr>
+      <td>11</td><td><strong>fr</strong></td><td>French</td>
+      <td>25</td><td><strong>tr</strong></td><td>Turkish</td>
+    </tr>
+    <tr>
+      <td>12</td><td><strong>es</strong></td><td>Spanish</td>
+      <td>26</td><td><strong>ro</strong></td><td>Romanian</td>
+    </tr>
+    <tr>
+      <td>13</td><td><strong>en</strong></td><td>English</td>
+      <td>27</td><td><strong>pt</strong></td><td>Portuguese</td>
+    </tr>
+    <tr>
+      <td>14</td><td><strong>vi</strong></td><td>Vietnamese</td>
+      <td></td><td></td><td></td>
+    </tr>
+  </tbody>
+</table>
 
 Enjoy multilingual support with easy-to-read formatting!
 
@@ -367,3 +547,11 @@ Comment on Issue or Pull Request.
 ## LICENSE
 
 This project is licensed under the MIT license. See [LICENSE](LICENSE) for more information.
+
+## Support the Package
+
+If you find this package helpful, please consider sharing it with your friends, teammates, or the Flutter community.
+
+Your support helps the package reach more developers and motivates me to keep improving it.
+
+Thank you for your love and support! 💙

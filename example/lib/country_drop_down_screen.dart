@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_mobile_field/countries.dart';
-import 'package:intl_mobile_field/flags_drop_down.dart';
+import 'package:intl_mobile_field/country_drop_down.dart';
 
 class CountryDropDownScreen extends StatelessWidget {
   const CountryDropDownScreen({super.key});
