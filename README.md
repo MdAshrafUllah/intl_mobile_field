@@ -35,7 +35,7 @@ flutter pub add intl_mobile_field
 Or, add the following to your `pubspec.yaml` file under `dependencies`:
 
 ```yaml
-intl_mobile_field: ^2.1.7
+intl_mobile_field: ^2.1.8
 ```
 
 Sometimes you may want to use the latest version of the package, instead of a published version. To do that, use the `git` syntax:
@@ -447,7 +447,7 @@ If you select **`languageCode`** Arabic, Urdu, Persian, or Cantonese (Chinese), 
 
 ## Supported Languages
 
-#### We support more than 26 languages, including:
+#### We support more than 43 languages, including:
 
 <table>
   <thead>
@@ -462,59 +462,91 @@ If you select **`languageCode`** Arabic, Urdu, Persian, or Cantonese (Chinese), 
   </thead>
   <tbody>
     <tr>
-      <td>01</td><td><strong>hu</strong></td><td>Hungarian</td>
-      <td>15</td><td><strong>ar</strong></td><td>Arabic</td>
+      <td>01</td><td><strong>ar</strong></td><td>Arabic</td>
+      <td>23</td><td><strong>mr</strong></td><td>Marathi</td>
     </tr>
     <tr>
-      <td>02</td><td><strong>sk</strong></td><td>Slovak</td>
-      <td>16</td><td><strong>fa</strong></td><td>Persian</td>
+      <td>02</td><td><strong>as</strong></td><td>Assamese</td>
+      <td>24</td><td><strong>ne</strong></td><td>Nepali</td>
     </tr>
     <tr>
-      <td>03</td><td><strong>se</strong></td><td>Swedish</td>
-      <td>17</td><td><strong>yue</strong></td><td>Cantonese (Chinese)</td>
+      <td>03</td><td><strong>bn</strong></td><td>Bangla (Bangladesh)</td>
+      <td>25</td><td><strong>no</strong></td><td>Norwegian</td>
     </tr>
     <tr>
-      <td>04</td><td><strong>pl</strong></td><td>Polish</td>
-      <td>18</td><td><strong>bd</strong></td><td>Bangla (Bangladesh)</td>
+      <td>04</td><td><strong>pt_br</strong></td><td>Brazilian Portuguese</td>
+      <td>26</td><td><strong>fa</strong></td><td>Persian</td>
     </tr>
     <tr>
-      <td>05</td><td><strong>no</strong></td><td>Norwegian</td>
-      <td>19</td><td><strong>in</strong></td><td>Hindi (India)</td>
+      <td>05</td><td><strong>yue</strong></td><td>Cantonese (Chinese)</td>
+      <td>27</td><td><strong>pl</strong></td><td>Polish</td>
     </tr>
     <tr>
-      <td>06</td><td><strong>ja</strong></td><td>Japanese</td>
-      <td>20</td><td><strong>ur</strong></td><td>Urdu (Pakistan)</td>
+      <td>06</td><td><strong>nl</strong></td><td>Dutch</td>
+      <td>28</td><td><strong>pt</strong></td><td>Portuguese</td>
     </tr>
     <tr>
-      <td>07</td><td><strong>it</strong></td><td>Italian</td>
-      <td>21</td><td><strong>pt_br</strong></td><td>Brazilian Portuguese</td>
+      <td>07</td><td><strong>en</strong></td><td>English</td>
+      <td>29</td><td><strong>ro</strong></td><td>Romanian</td>
     </tr>
     <tr>
-      <td>08</td><td><strong>zh</strong></td><td>Simplified Chinese</td>
-      <td>22</td><td><strong>sr_cyrl</strong></td><td>Serbian (Cyrillic)</td>
+      <td>08</td><td><strong>fil</strong></td><td>Filipino</td>
+      <td>30</td><td><strong>ru</strong></td><td>Russian</td>
     </tr>
     <tr>
-      <td>09</td><td><strong>nl</strong></td><td>Dutch</td>
-      <td>23</td><td><strong>sr_latn</strong></td><td>Serbian (Latin)</td>
+      <td>09</td><td><strong>fr</strong></td><td>French</td>
+      <td>31</td><td><strong>sr_cyrl</strong></td><td>Serbian (Cyrillic)</td>
     </tr>
     <tr>
       <td>10</td><td><strong>de</strong></td><td>German</td>
-      <td>24</td><td><strong>zh_tw</strong></td><td>Traditional Chinese</td>
+      <td>32</td><td><strong>sr_latn</strong></td><td>Serbian (Latin)</td>
     </tr>
     <tr>
-      <td>11</td><td><strong>fr</strong></td><td>French</td>
-      <td>25</td><td><strong>tr</strong></td><td>Turkish</td>
+      <td>11</td><td><strong>gu</strong></td><td>Gujarati</td>
+      <td>33</td><td><strong>zh</strong></td><td>Simplified Chinese</td>
     </tr>
     <tr>
-      <td>12</td><td><strong>es</strong></td><td>Spanish</td>
-      <td>26</td><td><strong>ro</strong></td><td>Romanian</td>
+      <td>12</td><td><strong>in</strong></td><td>Hindi (India)</td>
+      <td>34</td><td><strong>sd</strong></td><td>Sindhi</td>
     </tr>
     <tr>
-      <td>13</td><td><strong>en</strong></td><td>English</td>
-      <td>27</td><td><strong>pt</strong></td><td>Portuguese</td>
+      <td>13</td><td><strong>hu</strong></td><td>Hungarian</td>
+      <td>35</td><td><strong>si</strong></td><td>Sinhala</td>
     </tr>
     <tr>
-      <td>14</td><td><strong>vi</strong></td><td>Vietnamese</td>
+      <td>14</td><td><strong>id</strong></td><td>Indonesian</td>
+      <td>36</td><td><strong>sk</strong></td><td>Slovak</td>
+    </tr>
+    <tr>
+      <td>15</td><td><strong>it</strong></td><td>Italian</td>
+      <td>37</td><td><strong>es</strong></td><td>Spanish</td>
+    </tr>
+    <tr>
+      <td>16</td><td><strong>ja</strong></td><td>Japanese</td>
+      <td>38</td><td><strong>se</strong></td><td>Northern Sami</td>
+    </tr>
+    <tr>
+      <td>17</td><td><strong>kn</strong></td><td>Kannada</td>
+      <td>39</td><td><strong>th</strong></td><td>Thai</td>
+    </tr>
+    <tr>
+      <td>18</td><td><strong>ko</strong></td><td>Korean</td>
+      <td>40</td><td><strong>zh_tw</strong></td><td>Traditional Chinese</td>
+    </tr>
+    <tr>
+      <td>19</td><td><strong>ml</strong></td><td>Malayalam</td>
+      <td>41</td><td><strong>tr</strong></td><td>Turkish</td>
+    </tr>
+    <tr>
+      <td>20</td><td><strong>ta</strong></td><td>Tamil</td>
+      <td>42</td><td><strong>ur</strong></td><td>Urdu (Pakistan)</td>
+    </tr>
+    <tr>
+      <td>21</td><td><strong>te</strong></td><td>Telugu</td>
+      <td>43</td><td><strong>vi</strong></td><td>Vietnamese</td>
+    </tr>
+    <tr>
+      <td>22</td><td><strong>ml</strong></td><td>Malayalam</td>
       <td></td><td></td><td></td>
     </tr>
   </tbody>

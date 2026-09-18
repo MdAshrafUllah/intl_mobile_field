@@ -1,4 +1,57 @@
-## [2.1.7] - Release 🚀
+## [2.1.8] - Release 🚀
+
+- **New** Added support for **16 new languages**, expanding package localization to more users worldwide.
+
+#### Newly Added Languages
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>#</strong></th>
+      <th><strong>Code</strong></th>
+      <th><strong>Language</strong></th>
+      <th><strong>#</strong></th>
+      <th><strong>Code</strong></th>
+      <th><strong>Language</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td><td><code>as</code></td><td>Assamese</td>
+      <td>9</td><td><code>ne</code></td><td>Nepali</td>
+    </tr>
+    <tr>
+      <td>2</td><td><code>fil</code></td><td>Filipino</td>
+      <td>10</td><td><code>pa</code></td><td>Punjabi</td>
+    </tr>
+    <tr>
+      <td>3</td><td><code>gu</code></td><td>Gujarati</td>
+      <td>11</td><td><code>ru</code></td><td>Russian</td>
+    </tr>
+    <tr>
+      <td>4</td><td><code>id</code></td><td>Indonesian</td>
+      <td>12</td><td><code>sd</code></td><td>Sindhi <strong>(RTL)</strong></td>
+    </tr>
+    <tr>
+      <td>5</td><td><code>kn</code></td><td>Kannada</td>
+      <td>13</td><td><code>si</code></td><td>Sinhala</td>
+    </tr>
+    <tr>
+      <td>6</td><td><code>ko</code></td><td>Korean</td>
+      <td>14</td><td><code>ta</code></td><td>Tamil</td>
+    </tr>
+    <tr>
+      <td>7</td><td><code>ml</code></td><td>Malayalam</td>
+      <td>15</td><td><code>te</code></td><td>Telugu</td>
+    </tr>
+    <tr>
+      <td>8</td><td><code>mr</code></td><td>Marathi</td>
+      <td>16</td><td><code>th</code></td><td>Thai</td>
+    </tr>
+  </tbody>
+</table>
+
+## [2.1.7] - Release
 
 - **New** Added `searchBy` to customize country search behavior in the picker dialog
 - **New** Supports searching by country name, dial code, or both

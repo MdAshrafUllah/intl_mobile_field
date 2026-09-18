@@ -400,7 +400,7 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
   }
 
   bool checkRLTorLRT(String languageCode) {
-    List<String> rltLanguagesList = ["ar", "fa", "yue", "ur"];
+    List<String> rltLanguagesList = ["ar", "fa", "yue", "ur", "sd"];
     return rltLanguages = rltLanguagesList.contains(languageCode);
   }
 }
